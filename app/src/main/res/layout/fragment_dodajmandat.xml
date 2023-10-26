@@ -11,7 +11,7 @@
     <TableLayout
         android:id="@+id/dodajMandat"
         android:layout_width="match_parent"
-        android:layout_height="729dp"
+        android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="2"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,32 +20,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/nazwamandatuTextView"
+                android:id="@+id/nazwaMandatuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Powód">
             </TextView>
             <EditText
-                android:id="@+id/nazwamandatuEditText"
+                android:id="@+id/nazwaMandatuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="Wyprzedzanie"
-                android:inputType="text">
+                android:inputType="textPersonName">
             </EditText>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/liczbapunktowTextView"
+                android:id="@+id/liczbaPunktowTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Punkty">
             </TextView>
             <EditText
-                android:id="@+id/liczbapunktowEditText"
+                android:id="@+id/liczbaPunktowEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -58,13 +58,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/waznoscmandatuTextView"
+                android:id="@+id/waznoscMandatuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ważność">
             </TextView>
             <EditText
-                android:id="@+id/waznoscmandatuEditText"
+                android:id="@+id/waznoscMandatuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -98,13 +98,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/cenaMandatuTextView"
+                android:id="@+id/kwotaMandatuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kara">
+                android:text="Kwota">
             </TextView>
             <EditText
-                android:id="@+id/cenaMandatuEditText"
+                android:id="@+id/kwotaMandatuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
