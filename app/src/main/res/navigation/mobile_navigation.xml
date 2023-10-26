@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_stronaglowna">
+
+    <fragment
+        android:id="@+id/nav_stronaglowna"
+        android:name="com.example.vmsv3.ui.stronaglowna.StronaglownaFragment"
+        android:label="@string/menu_stronaglowna"
+        tools:layout="@layout/fragment_stronaglowna" />
+
+    <fragment
+        android:id="@+id/nav_kalendarz"
+        android:name="com.example.vmsv3.ui.kalendarz.KalendarzFragment"
+        android:label="@string/menu_kalendarz"
+        tools:layout="@layout/fragment_kalendarz" />
+
+    <fragment
+        android:id="@+id/nav_dodajtankowanie"
+        android:name="com.example.vmsv3.ui.dodajtankowanie.DodajtankowanieFragment"
+        android:label="@string/menu_dodajtankowanie"
+        tools:layout="@layout/fragment_dodajtankowanie" />
+
+    <fragment
+        android:id="@+id/nav_dodajkoszt"
+        android:name="com.example.vmsv3.ui.dodajkoszt.DodajkosztFragment"
+        android:label="@string/menu_dodajkoszt"
+        tools:layout="@layout/fragment_dodajkoszt" />
+
+    <fragment
+        android:id="@+id/nav_dodajwydarzenie"
+        android:name="com.example.vmsv3.ui.dodajwydarzenie.DodajwydarzenieFragment"
+        android:label="@string/menu_dodajwydarzenie"
+        tools:layout="@layout/fragment_dodajwydarzenie" />
+
+    <fragment
+        android:id="@+id/nav_historiatankowania"
+        android:name="com.example.vmsv3.ui.historiatankowania.HistoriatankowaniaFragment"
+        android:label="@string/menu_historiatankowania"
+        tools:layout="@layout/fragment_historiatankowania" />
+
+    <fragment
+        android:id="@+id/nav_historiakosztow"
+        android:name="com.example.vmsv3.ui.historiakosztow.HistoriakosztowFragment"
+        android:label="@string/menu_historiakosztow"
+        tools:layout="@layout/fragment_historiakosztow" />
+    <fragment
+        android:id="@+id/nav_wykresy"
+        android:name="com.example.vmsv3.ui.wykresy.WykresyFragment"
+        android:label="@string/menu_wykresy"
+        tools:layout="@layout/fragment_wykresy" />
+    <fragment
+        android:id="@+id/nav_listapojazdow"
+        android:name="com.example.vmsv3.ui.listapojazdow.ListapojazdowFragment"
+        android:label="@string/menu_listapojazdow"
+        tools:layout="@layout/fragment_listapojazdow" />
+    <fragment
+        android:id="@+id/nav_pomoc"
+        android:name="com.example.vmsv3.ui.pomoc.PomocFragment"
+        android:label="@string/menu_pomoc"
+        tools:layout="@layout/fragment_pomoc" />
+</navigation>
