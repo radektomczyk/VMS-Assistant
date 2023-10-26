@@ -17,12 +17,11 @@ public class WykresyFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        WykresyViewModel wykresyViewModel =
-                new ViewModelProvider(this).get(WykresyViewModel.class);
+        WykresyViewModel wykresyViewModel = new ViewModelProvider(this).get(WykresyViewModel.class);
         binding = FragmentWykresyBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textWykresy;
-        wykresyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textWykresy;
+//        wykresyViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -16,12 +16,11 @@ public class DodajtankowanieFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        DodajtankowanieViewModel dodajtankowanieViewModel =
-                new ViewModelProvider(this).get(DodajtankowanieViewModel.class);
+        DodajtankowanieViewModel dodajtankowanieViewModel = new ViewModelProvider(this).get(DodajtankowanieViewModel.class);
         binding = FragmentDodajtankowanieBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textDodajtankowanie;
-        dodajtankowanieViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textDodajtankowanie;
+//        dodajtankowanieViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

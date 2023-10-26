@@ -22,12 +22,11 @@ public class HistoriakosztowFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        HistoriakosztowViewModel historiakosztowViewModel =
-                new ViewModelProvider(this).get(HistoriakosztowViewModel.class);
+        HistoriakosztowViewModel historiakosztowViewModel = new ViewModelProvider(this).get(HistoriakosztowViewModel.class);
         binding = FragmentHistoriakosztowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textHistoriakosztow;
-        historiakosztowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textHistoriakosztow;
+//        historiakosztowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return  root;
     }
 

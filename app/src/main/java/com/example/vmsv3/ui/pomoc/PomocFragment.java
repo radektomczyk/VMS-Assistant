@@ -20,14 +20,13 @@ public class PomocFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        PomocViewModel pomocViewModel =
-                new ViewModelProvider(this).get(PomocViewModel.class);
+        PomocViewModel pomocViewModel = new ViewModelProvider(this).get(PomocViewModel.class);
 
         binding = FragmentPomocBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textPomoc;
-        pomocViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textPomoc;
+//        pomocViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

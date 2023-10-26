@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     R.id.nav_kalendarz,
                     R.id.nav_dodajtankowanie,
                     R.id.nav_dodajkoszt,
-                    R.id.nav_dodajwydarzenie,
+                    R.id.nav_dodajmandat,
                     R.id.nav_historiatankowania,
                     R.id.nav_historiakosztow,
                     R.id.nav_listapojazdow,

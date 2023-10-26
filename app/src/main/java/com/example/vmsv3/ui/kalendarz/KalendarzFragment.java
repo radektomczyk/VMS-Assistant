@@ -18,12 +18,11 @@ public class KalendarzFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        KalendarzViewModel kalendarzViewModel =
-                new ViewModelProvider(this).get(KalendarzViewModel.class);
+        KalendarzViewModel kalendarzViewModel = new ViewModelProvider(this).get(KalendarzViewModel.class);
         binding = FragmentKalendarzBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textKalendarz;
-        kalendarzViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textKalendarz;
+//        kalendarzViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
