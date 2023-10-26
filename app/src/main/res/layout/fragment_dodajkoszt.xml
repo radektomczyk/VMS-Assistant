@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.dodajkoszt.DodajkosztFragment">
 
     <TableLayout
         android:id="@+id/dodajKoszt"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="2"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tytul"
+                android:id="@+id/tytulKosztuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tytuł">
             </TextView>
             <EditText
-                android:id="@+id/tytulInput"
+                android:id="@+id/tytulKosztuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -37,13 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/opis"
+                android:id="@+id/opisKosztuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Opis">
             </TextView>
             <EditText
-                android:id="@+id/opisInput"
+                android:id="@+id/opisKosztuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -56,13 +58,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/koszt"
+                android:id="@+id/kwotaKosztuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Koszt">
             </TextView>
             <EditText
-                android:id="@+id/kosztInput"
+                android:id="@+id/kwotaKosztuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -75,13 +77,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/data"
+                android:id="@+id/dataKosztuTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data">
             </TextView>
             <EditText
-                android:id="@+id/dataInput"
+                android:id="@+id/dataKosztuEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
@@ -92,6 +94,12 @@
                 android:hint="dd/mm/rrrr">
             </EditText>
         </TableRow>
+        <Button
+            android:id="@+id/kosztButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zapisz koszt">
+        </Button>
     </TableLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
