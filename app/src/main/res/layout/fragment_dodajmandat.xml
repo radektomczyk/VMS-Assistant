@@ -1,11 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.dodajmandat.DodajmandatFragment">
 
+    <TableLayout
+        android:id="@+id/dodajMandat"
+        android:layout_width="match_parent"
+        android:layout_height="729dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/nazwamandatuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Powód">
+            </TextView>
+            <EditText
+                android:id="@+id/nazwamandatuEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="Wyprzedzanie"
+                android:inputType="text">
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/liczbapunktowTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punkty">
+            </TextView>
+            <EditText
+                android:id="@+id/liczbapunktowEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="5"
+                android:inputType="number">
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/waznoscmandatuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ważność">
+            </TextView>
+            <EditText
+                android:id="@+id/waznoscmandatuEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="12 miesięcy"
+                android:inputType="number">
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/dataWystawieniaMandatuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data">
+            </TextView>
+            <EditText
+                android:id="@+id/dataWystawieniaMandatuEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="dd/mm/rrrr">
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/cenaMandatuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kara">
+            </TextView>
+            <EditText
+                android:id="@+id/cenaMandatuEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="1500 zł"
+                android:inputType="number">
+            </EditText>
+        </TableRow>
+        <Button
+            android:id="@+id/mandatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zapisz mandat">
+        </Button>
+    </TableLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

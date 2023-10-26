@@ -28,6 +28,7 @@ public class DodajkosztFragment extends Fragment {
         DodajkosztViewModel dodajkosztViewModel = new ViewModelProvider(this).get(DodajkosztViewModel.class);
         binding = FragmentDodajkosztBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 //        final TextView textView = binding.textDodajkoszt;
 //        dodajkosztViewModel.getText().observe(getViewLifecycleOwner(),textView::setText);
 

@@ -7,70 +7,68 @@
     tools:context=".ui.dodajtankowanie.DodajtankowanieFragment">
 
     <TableLayout
+        android:id="@+id/dodajTankowanie"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:shrinkColumns="*"
         android:stretchColumns="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/dodajTankowanie">
+        app:layout_constraintTop_toTopOf="parent">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
-                android:id="@+id/tytul"
+                android:id="@+id/iloscPaliwaTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tytuł" />
+                android:text="Ilość" />
 
             <EditText
-                android:id="@+id/tytulInput"
+                android:id="@+id/iloscPaliwaEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:ems="10"
-                android:hint="Tytuł"
-                android:inputType="textPersonName" />
+                android:hint="20.23 l"
+                android:inputType="numberDecimal" />
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/cena"
+                android:id="@+id/cenaZaLitrTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cena" />
 
             <EditText
-                android:id="@+id/cenaInput"
+                android:id="@+id/cenaZaLitrEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:ems="10"
-                android:hint="5 zł/l"
-                android:inputType="textPersonName" />
+                android:hint="6.07 zł/l"
+                android:inputType="numberDecimal" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
-                android:id="@+id/przebieg"
+                android:id="@+id/typPaliwaTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Przebieg" />
-
-            <EditText
-                android:id="@+id/przebiegInput"
+                android:text="Typ paliwa" >
+            </TextView>
+            <Spinner
+                android:id="@+id/typPaliwaSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:ems="10"
-                android:hint="120678 km"
-                android:inputType="number" />
+                android:ems="10">
+            </Spinner>
         </TableRow>
 
         <TableRow
@@ -92,26 +90,12 @@
                 android:hint="200.00 zł"
                 android:inputType="textPersonName" />
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/ilosc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ilość" />
-
-            <EditText
-                android:id="@+id/iloscinput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:ems="10"
-                android:hint="40 l"
-                android:inputType="textPersonName" />
-        </TableRow>
     </TableLayout>
+    <Button
+        android:id="@+id/tankowanieButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zapisz tankowanie">
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
