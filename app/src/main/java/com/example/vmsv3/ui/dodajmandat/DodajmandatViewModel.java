@@ -1,15 +1,15 @@
-package com.example.vmsv3.ui.dodajwydarzenie;
+package com.example.vmsv3.ui.dodajmandat;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DodajwydarzenieViewModel extends ViewModel {
+public class DodajmandatViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
 
-    public DodajwydarzenieViewModel() {
+    public DodajmandatViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Dodaj wydarzenie");
+        mText.setValue("Dodaj mandat");
     }
     public LiveData<String> getText() {return mText;}
 }
