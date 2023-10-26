@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.dodajwydarzenie;
+package com.example.vmsv3.ui.dodajmandat;
 
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -8,20 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.vmsv3.databinding.FragmentDodajwydarzenieBinding;
 
-public class DodajwydarzenieFragment extends Fragment {
-    private FragmentDodajwydarzenieBinding binding;
+import com.example.vmsv3.databinding.FragmentDodajmandatBinding;
+
+public class DodajmandatFragment extends Fragment {
+    private FragmentDodajmandatBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        DodajwydarzenieViewModel dodajwydarzenieViewModel =
-                new ViewModelProvider(this).get(DodajwydarzenieViewModel.class);
-        binding = FragmentDodajwydarzenieBinding.inflate(inflater, container, false);
+        DodajmandatViewModel dodajmandatViewModel = new ViewModelProvider(this).get(DodajmandatViewModel.class);
+        binding = FragmentDodajmandatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textDodajwydarzenie;
-        dodajwydarzenieViewModel.getText().observe(getViewLifecycleOwner(),textView::setText);
+//        final TextView textView = binding.textDodajmandat;
+//        dodajmandatViewModel.getText().observe(getViewLifecycleOwner(),textView::setText);
         return root;
     }
 

@@ -18,12 +18,11 @@ public class HistoriatankowaniaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        HistoriatankowaniaViewModel historiatankowaniaViewModel =
-                new ViewModelProvider(this).get(HistoriatankowaniaViewModel.class);
+        HistoriatankowaniaViewModel historiatankowaniaViewModel = new ViewModelProvider(this).get(HistoriatankowaniaViewModel.class);
         binding = FragmentHistoriatankowaniaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        final TextView textView = binding.textHistoriatankowania;
-        historiatankowaniaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textHistoriatankowania;
+//        historiatankowaniaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

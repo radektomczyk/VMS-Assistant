@@ -6,84 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".ui.dodajkoszt.DodajkosztFragment">
 
-    <TextView
-        android:id="@+id/text_dodajkoszt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TableLayout
+        android:id="@+id/dodajKoszt"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".MainActivity">
-
-        <!-- Spinner (Dropdown) -->
-        <Spinner
-            android:id="@+id/spinner"
+        app:layout_constraintTop_toTopOf="parent">
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_items" />
-
-        <!-- First row -->
-        <EditText
-            android:id="@+id/editText1"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tytul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tytuł">
+            </TextView>
+            <EditText
+                android:id="@+id/tytulInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="Zakup zawieszki"
+                android:inputType="textPersonName">
+            </EditText>
+        </TableRow>
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Field 1"/>
-
-        <!-- Second row -->
-        <LinearLayout
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/opis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Opis">
+            </TextView>
+            <EditText
+                android:id="@+id/opisInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="Opis Kosztu"
+                android:inputType="textPersonName">
+            </EditText>
+        </TableRow>
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/koszt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Field 2"/>
+                android:text="Koszt">
+            </TextView>
             <EditText
-                android:id="@+id/editText3"
-                android:layout_width="0dp"
+                android:id="@+id/kosztInput"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Field 3"/>
-        </LinearLayout>
-
-        <!-- Third row -->
-        <LinearLayout
+                android:layout_span="2"
+                android:ems="10"
+                android:hint="12.49 zł"
+                android:inputType="numberDecimal">
+            </EditText>
+        </TableRow>
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/data"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Field 4"/>
+                android:text="Data">
+            </TextView>
             <EditText
-                android:id="@+id/editText5"
-                android:layout_width="0dp"
+                android:id="@+id/dataInput"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Field 5"/>
-        </LinearLayout>
-    </LinearLayout>
-
-
-
+                android:layout_span="2"
+                android:ems="10"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="dd/mm/rrrr">
+            </EditText>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

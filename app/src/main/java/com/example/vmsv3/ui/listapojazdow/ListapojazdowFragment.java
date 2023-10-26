@@ -20,14 +20,13 @@ public class ListapojazdowFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        ListapojazdowViewModel listapojazdowViewModel =
-                new ViewModelProvider(this).get(ListapojazdowViewModel.class);
+        ListapojazdowViewModel listapojazdowViewModel = new ViewModelProvider(this).get(ListapojazdowViewModel.class);
 
         binding = FragmentListapojazdowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textListapojazdow;
-        listapojazdowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textListapojazdow;
+//        listapojazdowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

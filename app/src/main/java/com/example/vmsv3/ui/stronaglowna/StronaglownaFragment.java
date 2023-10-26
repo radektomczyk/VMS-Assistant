@@ -19,14 +19,13 @@ public class StronaglownaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        StronaglownaViewModel stronaglownaViewModel =
-                new ViewModelProvider(this).get(StronaglownaViewModel.class);
+        StronaglownaViewModel stronaglownaViewModel = new ViewModelProvider(this).get(StronaglownaViewModel.class);
 
         binding = FragmentStronaglownaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textStronaglowna;
-        stronaglownaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textStronaglowna;
+//        stronaglownaViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

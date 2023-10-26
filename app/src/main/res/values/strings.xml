@@ -12,7 +12,7 @@
     <string name="menu_kalendarz">Kalendarz</string>
     <string name="menu_dodajtankowanie">Dodaj tankowanie</string>
     <string name="menu_dodajkoszt">Dodaj koszt</string>
-    <string name="menu_dodajwydarzenie">Dodaj wydarzenie</string>
+    <string name="menu_dodajmandat">Dodaj mandat</string>
     <string name="menu_historiatankowania">Historia tankowania</string>
     <string name="menu_historiakosztow">Historia kosztów</string>
     <string name="menu_wykresy">Wykresy</string>
