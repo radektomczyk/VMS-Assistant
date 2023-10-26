@@ -30,10 +30,10 @@
         tools:layout="@layout/fragment_dodajkoszt" />
 
     <fragment
-        android:id="@+id/nav_dodajwydarzenie"
-        android:name="com.example.vmsv3.ui.dodajwydarzenie.DodajwydarzenieFragment"
-        android:label="@string/menu_dodajwydarzenie"
-        tools:layout="@layout/fragment_dodajwydarzenie" />
+        android:id="@+id/nav_dodajmandat"
+        android:name="com.example.vmsv3.ui.dodajmandat.DodajmandatFragment"
+        android:label="@string/menu_dodajmandat"
+        tools:layout="@layout/fragment_dodajmandat" />
 
     <fragment
         android:id="@+id/nav_historiatankowania"

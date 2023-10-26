@@ -22,28 +22,28 @@
             android:icon="@drawable/ic_menu_money"
             android:title="@string/menu_dodajkoszt" />
         <item
-            android:id="@+id/nav_dodajwydarzenie"
-            android:icon="@drawable/ic_menu_money"
-            android:title="@string/menu_dodajwydarzenie" />
+            android:id="@+id/nav_dodajmandat"
+            android:icon="@drawable/ic_ticket"
+            android:title="@string/menu_dodajmandat" />
         <item
             android:id="@+id/nav_historiatankowania"
-            android:icon="@drawable/ic_menu_money"
+            android:icon="@drawable/ic_history"
             android:title="@string/menu_historiatankowania" />
         <item
             android:id="@+id/nav_historiakosztow"
-            android:icon="@drawable/ic_menu_money"
+            android:icon="@drawable/ic_cost_history"
             android:title="@string/menu_historiakosztow" />
         <item
             android:id="@+id/nav_wykresy"
-            android:icon="@drawable/ic_menu_money"
+            android:icon="@drawable/ic_chart"
             android:title="@string/menu_wykresy" />
         <item
             android:id="@+id/nav_listapojazdow"
-            android:icon="@drawable/ic_menu_money"
+            android:icon="@drawable/ic_pointed_list"
             android:title="@string/menu_listapojazdow" />
         <item
             android:id="@+id/nav_pomoc"
-            android:icon="@drawable/ic_menu_money"
+            android:icon="@drawable/ic_question_mark"
             android:title="@string/menu_pomoc" />
     </group>
 </menu>
