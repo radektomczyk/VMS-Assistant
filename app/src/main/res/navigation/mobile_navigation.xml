@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_stronaglowna">
+    app:startDestination="@+id/nav_mainPage">
 
     <fragment
-        android:id="@+id/nav_stronaglowna"
-        android:name="com.example.vmsv3.ui.stronaglowna.StronaglownaFragment"
-        android:label="@string/menu_stronaglowna"
-        tools:layout="@layout/fragment_stronaglowna" />
+        android:id="@+id/nav_mainPage"
+        android:name="com.example.vmsv3.ui.main_page.MainPageFragment"
+        android:label="@string/menu_mainPage"
+        tools:layout="@layout/fragment_main_page" />
 
     <fragment
-        android:id="@+id/nav_kalendarz"
-        android:name="com.example.vmsv3.ui.kalendarz.KalendarzFragment"
-        android:label="@string/menu_kalendarz"
-        tools:layout="@layout/fragment_kalendarz" />
+        android:id="@+id/nav_calendar"
+        android:name="com.example.vmsv3.ui.calendar.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
-        android:id="@+id/nav_dodajtankowanie"
-        android:name="com.example.vmsv3.ui.dodajtankowanie.DodajtankowanieFragment"
-        android:label="@string/menu_dodajtankowanie"
-        tools:layout="@layout/fragment_dodajtankowanie" />
+        android:id="@+id/nav_addRefuel"
+        android:name="com.example.vmsv3.ui.add_refuel.AddRefuelFragment"
+        android:label="@string/menu_addRefuel"
+        tools:layout="@layout/fragment_add_refuel" />
 
     <fragment
-        android:id="@+id/nav_dodajkoszt"
-        android:name="com.example.vmsv3.ui.dodajkoszt.DodajkosztFragment"
-        android:label="@string/menu_dodajkoszt"
-        tools:layout="@layout/fragment_dodajkoszt" />
+        android:id="@+id/nav_addCost"
+        android:name="com.example.vmsv3.ui.add_cost.AddCostFragment"
+        android:label="@string/menu_addCost"
+        tools:layout="@layout/fragment_add_cost" />
 
     <fragment
-        android:id="@+id/nav_dodajmandat"
-        android:name="com.example.vmsv3.ui.dodajmandat.DodajmandatFragment"
-        android:label="@string/menu_dodajmandat"
-        tools:layout="@layout/fragment_dodajmandat" />
+        android:id="@+id/nav_addTicket"
+        android:name="com.example.vmsv3.ui.add_ticket.AddTicketFragment"
+        android:label="@string/menu_addTicket"
+        tools:layout="@layout/fragment_add_ticket" />
 
     <fragment
-        android:id="@+id/nav_historiatankowania"
-        android:name="com.example.vmsv3.ui.historiatankowania.HistoriatankowaniaFragment"
-        android:label="@string/menu_historiatankowania"
-        tools:layout="@layout/fragment_historiatankowania" />
+        android:id="@+id/nav_refuelHistory"
+        android:name="com.example.vmsv3.ui.refuel_history.RefuelHistoryFragment"
+        android:label="@string/menu_refuelHistory"
+        tools:layout="@layout/fragment_refuel_history" />
 
     <fragment
-        android:id="@+id/nav_historiakosztow"
-        android:name="com.example.vmsv3.ui.historiakosztow.HistoriakosztowFragment"
-        android:label="@string/menu_historiakosztow"
-        tools:layout="@layout/fragment_historiakosztow" />
+        android:id="@+id/nav_costHistory"
+        android:name="com.example.vmsv3.ui.cost_history.CostHistoryFragment"
+        android:label="@string/menu_costHistory"
+        tools:layout="@layout/fragment_cost_history" />
     <fragment
-        android:id="@+id/nav_wykresy"
-        android:name="com.example.vmsv3.ui.wykresy.WykresyFragment"
-        android:label="@string/menu_wykresy"
-        tools:layout="@layout/fragment_wykresy" />
+        android:id="@+id/nav_charts"
+        android:name="com.example.vmsv3.ui.charts.ChartsFragment"
+        android:label="@string/menu_charts"
+        tools:layout="@layout/fragment_charts" />
     <fragment
-        android:id="@+id/nav_listapojazdow"
-        android:name="com.example.vmsv3.ui.listapojazdow.ListapojazdowFragment"
-        android:label="@string/menu_listapojazdow"
-        tools:layout="@layout/fragment_listapojazdow" />
+        android:id="@+id/nav_vehicleList"
+        android:name="com.example.vmsv3.ui.vehicle_list.VehicleListFragment"
+        android:label="@string/menu_vehicleList"
+        tools:layout="@layout/fragment_vehicle_list" />
     <fragment
-        android:id="@+id/nav_pomoc"
-        android:name="com.example.vmsv3.ui.pomoc.PomocFragment"
-        android:label="@string/menu_pomoc"
-        tools:layout="@layout/fragment_pomoc" />
+        android:id="@+id/nav_help"
+        android:name="com.example.vmsv3.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
 </navigation>

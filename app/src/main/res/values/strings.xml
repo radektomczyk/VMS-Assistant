@@ -8,20 +8,20 @@
     <string name="nav_header_subtitle">user.name@vms.pl</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_stronaglowna">Strona główna</string>
-    <string name="menu_kalendarz">Kalendarz</string>
-    <string name="menu_dodajtankowanie">Dodaj tankowanie</string>
-    <string name="menu_dodajkoszt">Dodaj koszt</string>
-    <string name="menu_dodajmandat">Dodaj mandat</string>
-    <string name="menu_historiatankowania">Historia tankowania</string>
-    <string name="menu_historiakosztow">Historia kosztów</string>
-    <string name="menu_wykresy">Wykresy</string>
-    <string name="menu_listapojazdow">Lista pojazdow</string>
-    <string name="menu_pomoc">Pomoc</string>
+    <string name="menu_mainPage">Strona główna</string>
+    <string name="menu_calendar">Kalendarz</string>
+    <string name="menu_addRefuel">Dodaj tankowanie</string>
+    <string name="menu_addCost">Dodaj koszt</string>
+    <string name="menu_addTicket">Dodaj mandat</string>
+    <string name="menu_refuelHistory">Historia tankowania</string>
+    <string name="menu_costHistory">Historia kosztów</string>
+    <string name="menu_charts">Wykresy</string>
+    <string name="menu_vehicleList">Lista pojazdow</string>
+    <string name="menu_help">Pomoc</string>
 
-    <string name="login_logowanie">Logowanie</string>
+    <string name="login">Logowanie</string>
 
-    <string-array name="typ_paliwa_array">
+    <string-array name="fuelTypeArray">
         <item>Benzyna 95</item>
         <item>Benzyna 98</item>
         <item>Diesel</item>
