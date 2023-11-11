@@ -5,6 +5,7 @@ import com.example.vmsv3.transport.TicketDto;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -12,5 +13,5 @@ public interface ApiService {
     Call<LoginResponse> login(@Body LoginDto loginDto);
 
     @POST("/api/tickets")
-    Call<Void> createTicket(@Body TicketDto ticketDto);
+    Call<Void> createTicket(@Header("Authorization") String authorizationHeader, @Body TicketDto ticketDto);
 }

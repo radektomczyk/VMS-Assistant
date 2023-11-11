@@ -1,6 +1,8 @@
 package com.example.vmsv3.ui.add_ticket;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +39,11 @@ public class AddTicketFragment extends Fragment {
     private EditText costEditText;
     private Button button;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -55,43 +60,79 @@ public class AddTicketFragment extends Fragment {
         // Initialize calendar view
         dateEditText.setOnClickListener(v -> showDatePicker());
 
+
         button.setOnClickListener(this::createTicket);
 
         return root;
     }
 
     private void createTicket(View view) {
-        TicketDto ticket = new TicketDto();
-        ticket.setReason(reasonEditText.getText().toString());
-        ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
-        ticket.setValidityMonths(parseEditTextToInt(durationEditText));
-        ticket.setReceiveDate(parseDateEditText().toString());
-        ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
+        // Get the access token from SharedPreferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-        // Make a Retrofit API call
-        Call<Void> call = apiService.createTicket(ticket);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
-            }
+        // Check if the access token is available
+        if (accessToken != null && !accessToken.isEmpty()) {
+            // Retrofit initialization
+            apiService = ApiClient.getApiClient().create(ApiService.class);
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
-            }
-        });
+            // Create a TicketDto object
+            TicketDto ticket = new TicketDto();
+            ticket.setReason(reasonEditText.getText().toString());
+            ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
+            ticket.setValidityMonths(parseEditTextToInt(durationEditText));
+            ticket.setReceiveDate(parseDateEditText());
+            ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
+
+            // Add the Authorization header with the token to the Retrofit API call
+            String authorizationHeader = "Bearer " + accessToken;
+
+            // Make a Retrofit API call with the Authorization header
+            Call<Void> call = apiService.createTicket(authorizationHeader, ticket);
+
+            // Enqueue the API call
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        // Handle successful response
+                        Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Handle unsuccessful response
+                        Toast.makeText(getContext(), "Failed to create ticket. Server returned " + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    // Handle API call failure
+                    Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Handle the case where the access token is not available
+            Toast.makeText(getContext(), "Access token is not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private Date parseDateEditText() {
+
+    private String parseDateEditText() {
         String dateString = dateEditText.getText().toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
         try {
-            return dateFormat.parse(dateString);
+            Date date = inputDateFormat.parse(dateString);
+            if (date != null) {
+                return outputDateFormat.format(date);
+            } else {
+                Toast.makeText(getContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+                return "";
+            }
         } catch (ParseException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
-            return new Date();
+            return "";
         }
     }
 

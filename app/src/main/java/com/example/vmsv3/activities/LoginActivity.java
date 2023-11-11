@@ -1,6 +1,8 @@
 package com.example.vmsv3.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +26,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextUsername;
     private EditText editTextPassword;
-
     private ApiService apiService;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
 
         apiService = ApiClient.getApiClient().create(ApiService.class);
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
     }
 
     public void loginClick(View view) {
@@ -53,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
                     String accessToken = null;
                     try {
                         accessToken = response.body().getAccessToken();
+                        Log.d("Login", "onResponse: Token" + accessToken);
+                        saveToken(accessToken);
+
 
                     }catch (NullPointerException e){
                         Log.e("AccessToken", "NullPointerException occurred: " + e.getMessage());
@@ -73,5 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Login", t.getMessage());
             }
         });
+    }
+    private void saveToken(String token) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ACCESS_TOKEN", token);
+        editor.apply();
     }
 }
