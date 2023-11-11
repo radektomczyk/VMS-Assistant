@@ -28,17 +28,23 @@ android {
     buildFeatures {
         viewBinding true
     }
-    packagingOptions {
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/notice.txt'
-    }
+//    packagingOptions {
+//        exclude 'META-INF/license.txt'
+//        exclude 'META-INF/notice.txt'
+//    }
+//    repositories {
+//        google() // for Google's Maven repository
+//        mavenCentral() // for Maven Central repository
+//        jcenter() // for JCenter repository (deprecated, but you have some dependencies from there)
+//    }
+
 }
 
 dependencies {
 
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-
+//    compileOnly 'org.projectlombok:lombok:1.18.30'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+//
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -46,12 +52,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
     implementation 'androidx.navigation:navigation-fragment:2.7.5'
     implementation 'androidx.navigation:navigation-ui:2.7.5'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.annotation:annotation:1.7.0'
-    implementation 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'androidx.annotation:annotation:1.7.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

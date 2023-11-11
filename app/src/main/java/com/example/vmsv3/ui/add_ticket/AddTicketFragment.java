@@ -1,20 +1,21 @@
 package com.example.vmsv3.ui.add_ticket;
 
-import androidx.fragment.app.Fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.vmsv3.R;
+import com.example.vmsv3.api.ApiClient;
+import com.example.vmsv3.api.ApiService;
 import com.example.vmsv3.databinding.FragmentAddTicketBinding;
-import com.example.vmsv3.service.SamochodioClient;
-import com.example.vmsv3.transport.MandatDto;
+import com.example.vmsv3.transport.TicketDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,8 +23,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddTicketFragment extends Fragment {
     private FragmentAddTicketBinding binding;
+    private ApiService apiService;
     private EditText reasonEditText;
     private EditText penaltyPointsEditText;
     private EditText durationEditText;
@@ -35,6 +41,9 @@ public class AddTicketFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // retrofit init
+        apiService = ApiClient.getApiClient().create(ApiService.class);
 
         reasonEditText = root.findViewById(R.id.ticketNameEditText);
         penaltyPointsEditText = root.findViewById(R.id.penaltyPointsEditText);
@@ -52,19 +61,26 @@ public class AddTicketFragment extends Fragment {
     }
 
     private void createTicket(View view) {
-        // Retrieve input values
-        String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibG9naW4iOiJydG9tY3p5ayIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY5OTQ0NzI5OSwiZXhwIjoxNjk5NTMzNjk5fQ.-7n2qlSEvKNpOcDzp1Q9czKbtXw7ecLWIkJATR8jr7I";
-        String reason = reasonEditText.getText().toString();
-        int penaltyPoints = parseEditTextToInt(penaltyPointsEditText);
-        int duration = parseEditTextToInt(durationEditText);
-        Date date = parseDateEditText();
-        int cost = parseEditTextToInt(costEditText);
+        TicketDto ticket = new TicketDto();
+        ticket.setReason(reasonEditText.getText().toString());
+        ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
+        ticket.setValidityMonths(parseEditTextToInt(durationEditText));
+        ticket.setReceiveDate(parseDateEditText().toString());
+        ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
 
-        // Create MandatDto
-        MandatDto mandatDto = new MandatDto(reason, penaltyPoints, duration, date, cost, 1);
+        // Make a Retrofit API call
+        Call<Void> call = apiService.createTicket(ticket);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
+            }
 
-        // Call API to create ticket
-        SamochodioClient.getInstance().createTicket(mandatDto, authToken);
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private Date parseDateEditText() {
