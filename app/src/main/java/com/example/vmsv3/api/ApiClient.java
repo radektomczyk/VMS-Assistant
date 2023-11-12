@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     //private static final String BASE_URL = "https://samochodio.onrender.com/api/";
-    private static final String BASE_URL = "http://192.168.1.105:8080/api/";
+    private static final String BASE_URL = "http://192.168.1.34:8080/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getApiClient() {
@@ -69,7 +69,7 @@ public class ApiClient {
         } catch (UnknownHostException e) {
             e.printStackTrace();
             Log.d("CurrentIP", "getCurrentIpAddress: " + e);
-            return ""; // Default value or throw an exception
+            return "";
         }
     }
 
@@ -80,14 +80,10 @@ public class ApiClient {
             X509TrustManager[] trustAllCerts = new X509TrustManager[]{
                     new X509TrustManager() {
                         @Override
-                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                            // No implementation needed
-                        }
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
                         @Override
-                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                            // No implementation needed
-                        }
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
 
                         @Override
                         public X509Certificate[] getAcceptedIssuers() {
