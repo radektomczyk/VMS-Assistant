@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Logowanie przebiegło pomyślnie", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Logging in successful", Toast.LENGTH_SHORT).show();
                     String accessToken = null;
                     try {
                         accessToken = response.body().getAccessToken();
@@ -71,13 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("ACCESS_TOKEN", accessToken);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Logowanie nie powiodło się", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Couldn't log in", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Błąd w trakcie logowania: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Logging error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.i("Login", t.getMessage());
             }
         });
