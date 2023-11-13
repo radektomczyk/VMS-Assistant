@@ -28,5 +28,9 @@
         <item>LPG</item>
         <item>Inne</item>
     </string-array>
+    <string-array name="ticketDurationArray">
+        <item>12 months</item>
+        <item>24 months</item>
+    </string-array>
 
 </resources>

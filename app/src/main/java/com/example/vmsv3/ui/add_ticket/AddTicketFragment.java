@@ -4,14 +4,19 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.vmsv3.R;
 import com.example.vmsv3.api.ApiClient;
@@ -24,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +40,7 @@ public class AddTicketFragment extends Fragment {
     private ApiService apiService;
     private EditText reasonEditText;
     private EditText penaltyPointsEditText;
-    private EditText durationEditText;
+    private Spinner ticketDurationSpinner;
     private EditText dateEditText;
     private EditText costEditText;
     private Button button;
@@ -42,8 +48,6 @@ public class AddTicketFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -52,8 +56,14 @@ public class AddTicketFragment extends Fragment {
 
         reasonEditText = root.findViewById(R.id.ticketNameEditText);
         penaltyPointsEditText = root.findViewById(R.id.penaltyPointsEditText);
-        durationEditText = root.findViewById(R.id.ticketDurationEditText);
-        dateEditText = root.findViewById(R.id.ticketDateEditText);
+        ticketDurationSpinner = root.findViewById(R.id.ticketDurationSpinner);
+        String[] ticketDurationArray = getResources().getStringArray(R.array.ticketDurationArray);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                ticketDurationArray);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ticketDurationSpinner.setAdapter(spinnerAdapter);        dateEditText = root.findViewById(R.id.ticketDateEditText);
         costEditText = root.findViewById(R.id.ticketAmountEditText);
         button = root.findViewById(R.id.saveTicketButton);
 
@@ -63,77 +73,117 @@ public class AddTicketFragment extends Fragment {
 
         button.setOnClickListener(this::createTicket);
 
+
         return root;
     }
 
     private void createTicket(View view) {
-        // Get the access token from SharedPreferences
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-        // Check if the access token is available
         if (accessToken != null && !accessToken.isEmpty()) {
-            // Retrofit initialization
             apiService = ApiClient.getApiClient().create(ApiService.class);
 
-            // Create a TicketDto object
-            TicketDto ticket = new TicketDto();
-            ticket.setReason(reasonEditText.getText().toString());
-            ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
-            ticket.setValidityMonths(parseEditTextToInt(durationEditText));
-            ticket.setReceiveDate(parseDateEditText());
-            ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
+            if (validateFields()) {
+                TicketDto ticket = new TicketDto();
+                ticket.setReason(reasonEditText.getText().toString());
+                ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
+                ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner)); // Use the Spinner value
+                ticket.setReceiveDate(parseDateEditText());
+                ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
 
-            // Add the Authorization header with the token to the Retrofit API call
-            String authorizationHeader = "Bearer " + accessToken;
+                String authorizationHeader = "Bearer " + accessToken;
 
-            // Make a Retrofit API call with the Authorization header
-            Call<Void> call = apiService.createTicket(authorizationHeader, ticket);
+                Call<Void> call = apiService.createTicket(authorizationHeader, ticket);
 
-            // Enqueue the API call
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        // Handle successful response
-                        Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Handle unsuccessful response
-                        Toast.makeText(getContext(), "Failed to create ticket. Server returned " + response.code(), Toast.LENGTH_SHORT).show();
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
+                            emptyFields();
+                            NavController navController = Navigation.findNavController(requireView());
+                            navController.navigateUp();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to create ticket. Server returned " + response.code(), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    // Handle API call failure
-                    Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            // Handle the case where the access token is not available
             Toast.makeText(getContext(), "Access token is not available", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean validateFields() {
+        return !reasonEditText.getText().toString().isEmpty() &&
+                !penaltyPointsEditText.getText().toString().isEmpty() &&
+                isValidSpinnerSelection(ticketDurationSpinner) &&
+                !dateEditText.getText().toString().isEmpty() &&
+                !costEditText.getText().toString().isEmpty();
     }
 
 
     private String parseDateEditText() {
         String dateString = dateEditText.getText().toString();
+        Log.d("Ticket", "Input date string: " + dateString);
+
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        outputDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         try {
             Date date = inputDateFormat.parse(dateString);
-            if (date != null) {
+
+            if (date != null && isValidDate(date)) {
+                // Increment the date by one day
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                date = calendar.getTime();
+
+                Log.d("Ticket", "Parsed date to string: " + date);
                 return outputDateFormat.format(date);
             } else {
-                Toast.makeText(getContext(), "Invalid date", Toast.LENGTH_SHORT).show();
-                return "";
+                Toast.makeText(getContext(), "Invalid date or date is further from today", Toast.LENGTH_SHORT).show();
+                return null; // or handle invalid date differently
             }
         } catch (ParseException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
-            return "";
+            return null; // or handle parse exception differently
         }
+    }
+
+    private boolean isValidSpinnerSelection(Spinner spinner) {
+        return spinner.getSelectedItem() != null && !spinner.getSelectedItem().toString().isEmpty();
+    }
+
+    private int parseSpinnerSelectionToValue(Spinner spinner) {
+        String selectedOption = spinner.getSelectedItem().toString();
+
+        // Add logic to map the selected option to the corresponding numeric value
+        switch (selectedOption) {
+            case "12 months":
+                return 12;
+            case "24 months":
+                return 24;
+            default:
+                return 0; // Default value if the selected option is not recognized
+        }
+    }
+
+    private boolean isValidDate(Date inputDate) {
+        // Check if the input date is not further from today's date
+        Date currentDate = new Date();
+        return inputDate != null && !inputDate.after(currentDate);
     }
 
     private int parseEditTextToInt(EditText editText) {
@@ -147,20 +197,25 @@ public class AddTicketFragment extends Fragment {
     }
 
     private void showDatePicker() {
-        // Get current date
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Create DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), (view, year1, month1, dayOfMonth) ->
-                dateEditText.setText(String.format(Locale.getDefault(), "%d/%02d/%02d", year1, month1 + 1, dayOfMonth)), year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), (view, year1, month1, dayOfMonth) -> {
+            dateEditText.setText(String.format(Locale.getDefault(), "%02d/%02d/%d", dayOfMonth, month1 + 1, year1));
+        }, year, month, day);
 
-        // Display DatePickerDialog
         datePickerDialog.show();
     }
 
+    public void emptyFields(){
+        reasonEditText.setText(null);
+        penaltyPointsEditText.setText(null);
+        ticketDurationSpinner.setSelection(0);
+        dateEditText.setText(null);
+        costEditText.setText(null);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

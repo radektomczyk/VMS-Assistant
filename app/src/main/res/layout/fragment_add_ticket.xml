@@ -63,15 +63,11 @@
                 android:layout_height="wrap_content"
                 android:text="Ważność">
             </TextView>
-            <EditText
-                android:id="@+id/ticketDurationEditText"
+            <Spinner
+                android:id="@+id/ticketDurationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:ems="10"
-                android:hint="12 miesięcy"
-                android:inputType="number">
-            </EditText>
+                android:layout_span="2"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
