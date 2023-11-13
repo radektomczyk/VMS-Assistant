@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -38,7 +40,7 @@ public class AddTicketFragment extends Fragment {
     private ApiService apiService;
     private EditText reasonEditText;
     private EditText penaltyPointsEditText;
-    private EditText durationEditText;
+    private Spinner ticketDurationSpinner;
     private EditText dateEditText;
     private EditText costEditText;
     private Button button;
@@ -54,8 +56,14 @@ public class AddTicketFragment extends Fragment {
 
         reasonEditText = root.findViewById(R.id.ticketNameEditText);
         penaltyPointsEditText = root.findViewById(R.id.penaltyPointsEditText);
-        durationEditText = root.findViewById(R.id.ticketDurationEditText);
-        dateEditText = root.findViewById(R.id.ticketDateEditText);
+        ticketDurationSpinner = root.findViewById(R.id.ticketDurationSpinner);
+        String[] ticketDurationArray = getResources().getStringArray(R.array.ticketDurationArray);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                ticketDurationArray);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ticketDurationSpinner.setAdapter(spinnerAdapter);        dateEditText = root.findViewById(R.id.ticketDateEditText);
         costEditText = root.findViewById(R.id.ticketAmountEditText);
         button = root.findViewById(R.id.saveTicketButton);
 
@@ -80,7 +88,7 @@ public class AddTicketFragment extends Fragment {
                 TicketDto ticket = new TicketDto();
                 ticket.setReason(reasonEditText.getText().toString());
                 ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
-                ticket.setValidityMonths(parseEditTextToInt(durationEditText));
+                ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner)); // Use the Spinner value
                 ticket.setReceiveDate(parseDateEditText());
                 ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
 
@@ -117,7 +125,7 @@ public class AddTicketFragment extends Fragment {
     private boolean validateFields() {
         return !reasonEditText.getText().toString().isEmpty() &&
                 !penaltyPointsEditText.getText().toString().isEmpty() &&
-                !durationEditText.getText().toString().isEmpty() &&
+                isValidSpinnerSelection(ticketDurationSpinner) &&
                 !dateEditText.getText().toString().isEmpty() &&
                 !costEditText.getText().toString().isEmpty();
     }
@@ -154,6 +162,24 @@ public class AddTicketFragment extends Fragment {
         }
     }
 
+    private boolean isValidSpinnerSelection(Spinner spinner) {
+        return spinner.getSelectedItem() != null && !spinner.getSelectedItem().toString().isEmpty();
+    }
+
+    private int parseSpinnerSelectionToValue(Spinner spinner) {
+        String selectedOption = spinner.getSelectedItem().toString();
+
+        // Add logic to map the selected option to the corresponding numeric value
+        switch (selectedOption) {
+            case "12 months":
+                return 12;
+            case "24 months":
+                return 24;
+            default:
+                return 0; // Default value if the selected option is not recognized
+        }
+    }
+
     private boolean isValidDate(Date inputDate) {
         // Check if the input date is not further from today's date
         Date currentDate = new Date();
@@ -186,7 +212,7 @@ public class AddTicketFragment extends Fragment {
     public void emptyFields(){
         reasonEditText.setText(null);
         penaltyPointsEditText.setText(null);
-        durationEditText.setText(null);
+        ticketDurationSpinner.setSelection(0);
         dateEditText.setText(null);
         costEditText.setText(null);
     }
