@@ -51,7 +51,7 @@
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="Opis Kosztu"
-                android:inputType="textPersonName">
+                android:inputType="text">
             </EditText>
         </TableRow>
         <TableRow
@@ -69,8 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_span="2"
                 android:ems="10"
-                android:hint="12.49 zł"
-                android:inputType="numberDecimal">
+                android:hint="12 zł"
+                android:inputType="number">
             </EditText>
         </TableRow>
         <TableRow

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -47,7 +48,9 @@ public class AddTicketFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -89,7 +92,7 @@ public class AddTicketFragment extends Fragment {
                 ticket.setReason(reasonEditText.getText().toString());
                 ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
                 ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner)); // Use the Spinner value
-                ticket.setReceiveDate(parseDateEditText());
+                ticket.setReceiveDate(parseDateEditText(dateEditText));
                 ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
 
                 String authorizationHeader = "Bearer " + accessToken;
@@ -131,8 +134,8 @@ public class AddTicketFragment extends Fragment {
     }
 
 
-    private String parseDateEditText() {
-        String dateString = dateEditText.getText().toString();
+    private String parseDateEditText(EditText editText) {
+        String dateString = editText.getText().toString();
         Log.d("Ticket", "Input date string: " + dateString);
 
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -181,7 +184,6 @@ public class AddTicketFragment extends Fragment {
     }
 
     private boolean isValidDate(Date inputDate) {
-        // Check if the input date is not further from today's date
         Date currentDate = new Date();
         return inputDate != null && !inputDate.after(currentDate);
     }
