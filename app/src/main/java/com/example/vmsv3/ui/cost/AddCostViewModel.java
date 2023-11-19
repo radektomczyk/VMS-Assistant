@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_cost;
+package com.example.vmsv3.ui.cost;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

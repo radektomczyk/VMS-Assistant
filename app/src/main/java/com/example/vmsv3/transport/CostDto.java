@@ -3,6 +3,8 @@ package com.example.vmsv3.transport;
 import com.google.gson.annotations.SerializedName;
 
 public class CostDto {
+    @SerializedName("id_kosztu")
+    private int id;
     @SerializedName("nazwa")
     private String costName;
     @SerializedName("opis")

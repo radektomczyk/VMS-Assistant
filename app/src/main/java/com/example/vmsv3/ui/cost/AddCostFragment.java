@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_cost;
+package com.example.vmsv3.ui.cost;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -127,12 +127,12 @@ public class AddCostFragment extends Fragment {
                 return outputDateFormat.format(date);
             } else {
                 Toast.makeText(getContext(), "Invalid date or date is further from today", Toast.LENGTH_SHORT).show();
-                return null; // or handle invalid date differently
+                return null;
             }
         } catch (ParseException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
-            return null; // or handle parse exception differently
+            return null;
         }
     }
 
