@@ -4,19 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
@@ -24,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     // private static final String BASE_URL = "https://samochodio.onrender.com/api/";
-    private static final String BASE_URL = "http://192.168.1.34:8080/api/";
+    private static final String BASE_URL = "http://192.168.1.105:8080/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getApiClient() {
@@ -39,22 +34,17 @@ public class ApiClient {
 
     private static OkHttpClient getOkHttpClient(final Context context) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
+        httpClient.addInterceptor(chain -> {
+            Request original = chain.request();
 
-                // Get the access token from SharedPreferences
-                SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+            SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-                // Add the Authorization header
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header("Authorization", "Bearer " + accessToken);
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("Authorization", "Bearer " + accessToken);
 
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
         });
 
         return httpClient.build();
@@ -63,7 +53,6 @@ public class ApiClient {
     // get current ip address to develop app locally
     private static String getCurrentIpAddress() {
         try {
-            // Get the local host's IP address
             InetAddress localhost = InetAddress.getLocalHost();
             return localhost.getHostAddress();
         } catch (UnknownHostException e) {
@@ -80,10 +69,10 @@ public class ApiClient {
             X509TrustManager[] trustAllCerts = new X509TrustManager[]{
                     new X509TrustManager() {
                         @Override
-                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) {}
 
                         @Override
-                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) {}
 
                         @Override
                         public X509Certificate[] getAcceptedIssuers() {
@@ -98,12 +87,9 @@ public class ApiClient {
 
             // set up trust manager
             HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    // allow all hostnames
-                    return true;
-                }
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> {
+                // allow all hostnames
+                return true;
             });
         } catch (Exception e) {
             e.printStackTrace();
