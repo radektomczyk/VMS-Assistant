@@ -25,7 +25,7 @@ public class CostHistoryViewModel extends ViewModel {
     }
 
     public LiveData<List<CostDto>> getCosts(String authorizationHeader) {
-        isLoading.setValue(true); // Set loading to true before making the call
+        isLoading.setValue(true);
 
         Call<List<CostDto>> call = apiService.getCosts(authorizationHeader);
 
