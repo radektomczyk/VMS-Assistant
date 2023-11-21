@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_refuel;
+package com.example.vmsv3.ui.refuel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
