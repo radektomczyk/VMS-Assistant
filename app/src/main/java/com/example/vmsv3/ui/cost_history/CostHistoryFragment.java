@@ -7,11 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,36 +32,37 @@ public class CostHistoryFragment extends Fragment {
         binding = FragmentCostHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ApiService apiService;
-        apiService = ApiClient.getApiClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getApiClient().create(ApiService.class);
 
-        ViewModelProvider.Factory factory = new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                if (modelClass.isAssignableFrom(CostHistoryViewModel.class)) {
-                    return (T) new CostHistoryViewModel(apiService);
-                }
-                throw new IllegalArgumentException("Unknown ViewModel class");
-            }
-        };
-
-        viewModel = new ViewModelProvider(this, factory).get(CostHistoryViewModel.class);
-
+        // Initialize ViewModel with ApiService and Context
+        viewModel = new ViewModelProvider(this, new ViewModelFactory(apiService, requireContext())).get(CostHistoryViewModel.class);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosts);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         CostAdapter costAdapter = new CostAdapter();
         recyclerView.setAdapter(costAdapter);
 
+        // TextView for displaying the message when cost history is empty
+        TextView textViewNoCostHistory = root.findViewById(R.id.textViewNoCostHistory);
+
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
         if (accessToken != null) {
             viewModel.getCosts("Bearer " + accessToken).observe(getViewLifecycleOwner(), costs -> {
-                costAdapter.setCosts(costs);
+                if (costs != null && !costs.isEmpty()) {
+                    // If cost history is not empty, show the RecyclerView and hide the message
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textViewNoCostHistory.setVisibility(View.GONE);
+                    costAdapter.setCosts(costs);
+                } else {
+                    // If cost history is empty, hide the RecyclerView and show the message
+                    recyclerView.setVisibility(View.GONE);
+                    textViewNoCostHistory.setVisibility(View.VISIBLE);
+                }
             });
         } else {
+            // Handle the case where the access token is null
             Toast.makeText(requireContext(), "Access token not available", Toast.LENGTH_SHORT).show();
             Log.e("CostHistoryFragment", "Access token is null. Redirect to login screen or handle accordingly.");
         }
