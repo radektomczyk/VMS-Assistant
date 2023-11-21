@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_refuel;
+package com.example.vmsv3.ui.refuel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

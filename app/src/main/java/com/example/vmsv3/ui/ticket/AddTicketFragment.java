@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_ticket;
+package com.example.vmsv3.ui.ticket;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -70,7 +70,7 @@ public class AddTicketFragment extends Fragment {
         costEditText = root.findViewById(R.id.ticketAmountEditText);
         button = root.findViewById(R.id.saveTicketButton);
 
-        // Initialize calendar view
+        // init calendar
         dateEditText.setOnClickListener(v -> showDatePicker());
 
 
@@ -91,7 +91,7 @@ public class AddTicketFragment extends Fragment {
                 TicketDto ticket = new TicketDto();
                 ticket.setReason(reasonEditText.getText().toString());
                 ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
-                ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner)); // Use the Spinner value
+                ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner));
                 ticket.setReceiveDate(parseDateEditText(dateEditText));
                 ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
 
@@ -146,7 +146,6 @@ public class AddTicketFragment extends Fragment {
             Date date = inputDateFormat.parse(dateString);
 
             if (date != null && isValidDate(date)) {
-                // Increment the date by one day
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -156,12 +155,12 @@ public class AddTicketFragment extends Fragment {
                 return outputDateFormat.format(date);
             } else {
                 Toast.makeText(getContext(), "Invalid date or date is further from today", Toast.LENGTH_SHORT).show();
-                return null; // or handle invalid date differently
+                return null;
             }
         } catch (ParseException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
-            return null; // or handle parse exception differently
+            return null;
         }
     }
 
@@ -172,14 +171,13 @@ public class AddTicketFragment extends Fragment {
     private int parseSpinnerSelectionToValue(Spinner spinner) {
         String selectedOption = spinner.getSelectedItem().toString();
 
-        // Add logic to map the selected option to the corresponding numeric value
         switch (selectedOption) {
             case "12 months":
                 return 12;
             case "24 months":
                 return 24;
             default:
-                return 0; // Default value if the selected option is not recognized
+                return 0;
         }
     }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vmsv3.R;
@@ -16,6 +17,8 @@ import com.example.vmsv3.api.ApiClient;
 import com.example.vmsv3.api.ApiService;
 import com.example.vmsv3.api.LoginResponse;
 import com.example.vmsv3.transport.LoginDto;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,11 +55,12 @@ public class LoginActivity extends AppCompatActivity {
         Call<LoginResponse> call = apiService.login(loginDto);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Logging in successful", Toast.LENGTH_SHORT).show();
                     String accessToken = null;
                     try {
+                        assert response.body() != null;
                         accessToken = response.body().getAccessToken();
                         Log.d("Login", "onResponse: Token" + accessToken);
                         saveToken(accessToken);
@@ -76,9 +80,9 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
                 Toast.makeText(LoginActivity.this, "Logging error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("Login", t.getMessage());
+                Log.i("Login", Objects.requireNonNull(t.getMessage()));
             }
         });
     }

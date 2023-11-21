@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.add_ticket;
+package com.example.vmsv3.ui.ticket;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
