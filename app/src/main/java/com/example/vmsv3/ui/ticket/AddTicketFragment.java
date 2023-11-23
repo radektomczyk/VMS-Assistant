@@ -151,7 +151,7 @@ public class AddTicketFragment extends Fragment {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
                 date = calendar.getTime();
 
-                Log.d("Ticket", "Parsed date to string: " + date);
+                Log.d("AddTicketFragment", "Parsed date to string: " + date);
                 return outputDateFormat.format(date);
             } else {
                 Toast.makeText(getContext(), "Invalid date or date is further from today", Toast.LENGTH_SHORT).show();

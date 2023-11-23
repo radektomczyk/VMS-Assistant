@@ -1,5 +1,6 @@
 package com.example.vmsv3.ui.vehicle_list;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         return vehicleList.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setVehicleList(List<VehicleDto> vehicleList) {
         this.vehicleList = vehicleList;
         notifyDataSetChanged();

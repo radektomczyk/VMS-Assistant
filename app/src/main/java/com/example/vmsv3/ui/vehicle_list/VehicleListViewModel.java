@@ -2,6 +2,7 @@ package com.example.vmsv3.ui.vehicle_list;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -31,7 +32,7 @@ public class VehicleListViewModel extends ViewModel {
 
         call.enqueue(new Callback<List<VehicleDto>>() {
             @Override
-            public void onResponse(Call<List<VehicleDto>> call, Response<List<VehicleDto>> response) {
+            public void onResponse(@NonNull Call<List<VehicleDto>> call, @NonNull Response<List<VehicleDto>> response) {
                 isLoading.setValue(false);
                 if (response.isSuccessful()) {
                     vehicleListLiveData.setValue(response.body());
@@ -41,16 +42,12 @@ public class VehicleListViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<List<VehicleDto>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<VehicleDto>> call, @NonNull Throwable t) {
                 isLoading.setValue(false);
                 Log.e("VehicleListViewModel", "Network error: " + t.getMessage(), t);
             }
         });
 
         return vehicleListLiveData;
-    }
-
-    public LiveData<Boolean> isLoading() {
-        return isLoading;
     }
 }

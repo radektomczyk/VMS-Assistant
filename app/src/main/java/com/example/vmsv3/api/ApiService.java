@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("/api/auth/login")
@@ -22,7 +23,7 @@ public interface ApiService {
     Call<Void> createTicket(@Header("Authorization") String authorizationHeader, @Body TicketDto ticketDto);
 
     @POST("/api/refuel/{vehicleid}")
-    Call<Void> createRefuel(@Header("Authorization") String authorozationHeader, @Body RefuelDto refuelDto);
+    Call<Void> createRefuel(@Header("Authorization") String authorizationHeader, @Path("vehicleid") long vehicleId, @Body RefuelDto refuelDto);
 
     @POST("/api/costs/")
     Call<Void> createCost(@Header("Authorization") String authorizationHeader, @Body CostDto costDto);
