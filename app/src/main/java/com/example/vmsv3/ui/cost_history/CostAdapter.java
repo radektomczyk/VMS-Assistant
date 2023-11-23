@@ -1,5 +1,6 @@
 package com.example.vmsv3.ui.cost_history;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,12 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CostViewHolder holder, int position) {
-        CostDto cost = costs.get(position);
-        holder.bind(cost);
+        if (costs != null && position < costs.size()) {
+            CostDto cost = costs.get(position);
+            holder.bind(cost);
+        } else {
+            Log.e("CostAdapter", "Invalid data or position");
+        }
     }
 
     @Override

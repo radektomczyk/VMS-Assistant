@@ -16,6 +16,25 @@
         android:stretchColumns="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/vehiclesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wybierz samochod" >
+            </TextView>
+            <Spinner
+                android:id="@+id/vehiclesSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10">
+            </Spinner>
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -88,8 +107,31 @@
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="200.00 zł"
-                android:inputType="textPersonName" />
+                android:inputType="numberDecimal" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/refuelDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data">
+            </TextView>
+            <EditText
+                android:id="@+id/refuelDateEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:ems="10"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="dd/mm/rrrr">
+            </EditText>
+        </TableRow>
+
         <Button
             android:id="@+id/saveRefuelButton"
             android:layout_width="wrap_content"

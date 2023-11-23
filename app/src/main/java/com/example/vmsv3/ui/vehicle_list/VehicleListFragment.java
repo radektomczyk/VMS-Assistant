@@ -24,7 +24,6 @@ import com.example.vmsv3.databinding.FragmentVehicleListBinding;
 public class VehicleListFragment extends Fragment {
 
     private FragmentVehicleListBinding binding;
-    private VehicleListViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
@@ -46,7 +45,7 @@ public class VehicleListFragment extends Fragment {
             }
         };
 
-        viewModel = new ViewModelProvider(this, factory).get(VehicleListViewModel.class);
+        VehicleListViewModel viewModel = new ViewModelProvider(this, factory).get(VehicleListViewModel.class);
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewVehicleList);
@@ -58,9 +57,7 @@ public class VehicleListFragment extends Fragment {
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
         if (accessToken != null) {
-            viewModel.getVehicleList("Bearer " + accessToken).observe(getViewLifecycleOwner(), vehicleList -> {
-                vehicleAdapter.setVehicleList(vehicleList);
-            });
+            viewModel.getVehicleList("Bearer " + accessToken).observe(getViewLifecycleOwner(), vehicleAdapter::setVehicleList);
         } else {
             Toast.makeText(requireContext(), "Access token not available", Toast.LENGTH_SHORT).show();
             Log.e("VehicleListFragment", "Access token is null. Redirect to login screen or handle accordingly.");

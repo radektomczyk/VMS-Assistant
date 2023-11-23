@@ -3,6 +3,8 @@ package com.example.vmsv3.transport;
 import com.google.gson.annotations.SerializedName;
 
 public class VehicleDto {
+    @SerializedName("id_pojazdu")
+    private long vehicleId;
     @SerializedName("marka")
     private String carBrand;
     @SerializedName("model")
@@ -19,11 +21,13 @@ public class VehicleDto {
     private String carFuelType;
     @SerializedName("kategoria")
     private String carCategory;
-
+    @SerializedName("id_user")
+    private long userId;
     public VehicleDto() {
     }
 
-    public VehicleDto(String carBrand, String carModel, int carYear, String carVIN, String carPlate, String carRegistrationDate, String carFuelType, String carCategory) {
+    public VehicleDto(long vehicleId,String carBrand, String carModel, int carYear, String carVIN, String carPlate, String carRegistrationDate, String carFuelType, String carCategory) {
+        this.vehicleId = vehicleId;
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.carYear = carYear;
@@ -32,6 +36,14 @@ public class VehicleDto {
         this.carRegistrationDate = carRegistrationDate;
         this.carFuelType = carFuelType;
         this.carCategory = carCategory;
+    }
+
+    public long getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(long vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public String getCarBrand() {
@@ -96,5 +108,13 @@ public class VehicleDto {
 
     public void setCarCategory(String carCategory) {
         this.carCategory = carCategory;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

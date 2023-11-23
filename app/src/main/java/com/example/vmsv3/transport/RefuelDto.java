@@ -8,17 +8,18 @@ public class RefuelDto {
     @SerializedName("typ_paliwa")
     private String fuelType;
     @SerializedName("cena_za_litr")
-    private double pricePerLiter;
+    private int pricePerLiter;
     @SerializedName("cena")
-    private double totalPrice;
+    private int totalPrice;
     @SerializedName("data")
     private String refuelDate;
     @SerializedName("blokada")
-    private boolean blockade;
+    private int blockade;
+
 
     public RefuelDto() {}
 
-    public RefuelDto(double fuelAmount, String fuelType, double pricePerLiter, double totalPrice, String refuelDate, boolean blockade) {
+    public RefuelDto(double fuelAmount, String fuelType, int pricePerLiter, int totalPrice, String refuelDate, int blockade) {
         this.fuelAmount = fuelAmount;
         this.fuelType = fuelType;
         this.pricePerLiter = pricePerLiter;
@@ -43,19 +44,19 @@ public class RefuelDto {
         this.fuelType = fuelType;
     }
 
-    public double getPricePerLiter() {
+    public int getPricePerLiter() {
         return pricePerLiter;
     }
 
-    public void setPricePerLiter(double pricePerLiter) {
+    public void setPricePerLiter(int pricePerLiter) {
         this.pricePerLiter = pricePerLiter;
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -67,11 +68,14 @@ public class RefuelDto {
         this.refuelDate = refuelDate;
     }
 
-    public boolean isBlockade() {
+    public int isBlockade() {
         return blockade;
     }
 
-    public void setBlockade(boolean blockadel) {
-        this.blockade = blockadel;
+    public void setBlockade(int blockade) {
+        this.blockade = blockade;
     }
+
+
+
 }

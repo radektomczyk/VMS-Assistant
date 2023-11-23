@@ -14,4 +14,12 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_cost" />
 
+    <TextView
+        android:id="@+id/textViewNoCostHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No cost history to show"
+        android:visibility="gone" />
+
 </LinearLayout>

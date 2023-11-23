@@ -22,11 +22,10 @@
     <string name="login">Logowanie</string>
 
     <string-array name="fuelTypeArray">
-        <item>Benzyna 95</item>
-        <item>Benzyna 98</item>
-        <item>Diesel</item>
+        <item>benzyna</item>
+        <item>diesel</item>
         <item>LPG</item>
-        <item>Inne</item>
+        <item>inne</item>
     </string-array>
     <string-array name="ticketDurationArray">
         <item>12 months</item>
