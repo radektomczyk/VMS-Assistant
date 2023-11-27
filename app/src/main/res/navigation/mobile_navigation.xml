@@ -47,16 +47,25 @@
         android:name="com.example.vmsv3.ui.cost_history.CostHistoryFragment"
         android:label="@string/menu_costHistory"
         tools:layout="@layout/fragment_cost_history" />
+
+    <fragment
+        android:id="@+id/nav_ticketHistory"
+        android:name="com.example.vmsv3.ui.ticket_history.TicketHistoryFragment"
+        android:label="@string/menu_ticketHistory"
+        tools:layout="@layout/fragment_ticket_history" />
+
     <fragment
         android:id="@+id/nav_charts"
         android:name="com.example.vmsv3.ui.charts.ChartsFragment"
         android:label="@string/menu_charts"
         tools:layout="@layout/fragment_charts" />
+
     <fragment
         android:id="@+id/nav_vehicleList"
         android:name="com.example.vmsv3.ui.vehicle_list.VehicleListFragment"
         android:label="@string/menu_vehicleList"
         tools:layout="@layout/fragment_vehicle_list" />
+
     <fragment
         android:id="@+id/nav_help"
         android:name="com.example.vmsv3.ui.help.HelpFragment"

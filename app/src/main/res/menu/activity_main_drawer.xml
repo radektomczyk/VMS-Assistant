@@ -35,6 +35,10 @@
             android:icon="@drawable/ic_cost_history"
             android:title="@string/menu_costHistory" />
         <item
+            android:id="@+id/nav_ticketHistory"
+            android:icon="@drawable/ic_cost_history"
+            android:title="@string/menu_ticketHistory" />
+        <item
             android:id="@+id/nav_charts"
             android:icon="@drawable/ic_chart"
             android:title="@string/menu_charts"/>

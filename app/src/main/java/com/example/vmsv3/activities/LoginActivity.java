@@ -17,6 +17,7 @@ import com.example.vmsv3.api.ApiClient;
 import com.example.vmsv3.api.ApiService;
 import com.example.vmsv3.api.LoginResponse;
 import com.example.vmsv3.transport.LoginDto;
+import com.example.vmsv3.transport.UserDto;
 
 import java.util.Objects;
 
@@ -65,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Login", "onResponse: Token" + accessToken);
                         saveToken(accessToken);
 
+                        fetchUserData(accessToken);
+
 
                     }catch (NullPointerException e){
                         Log.e("AccessToken", "NullPointerException occurred: " + e.getMessage());
@@ -89,6 +92,39 @@ public class LoginActivity extends AppCompatActivity {
     private void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ACCESS_TOKEN", token);
+        editor.apply();
+    }
+
+    private void fetchUserData(String accessToken) {
+        Call<UserDto> call = apiService.getUserData("Bearer " + accessToken);
+        call.enqueue(new Callback<UserDto>() {
+            @Override
+            public void onResponse(@NonNull Call<UserDto> call, @NonNull Response<UserDto> response) {
+                if (response.isSuccessful()) {
+                    UserDto userData = response.body();
+                    if (userData != null) {
+                        updateStringsXml(userData.getLogin(), userData.getEmail());
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Couldn't fetch user data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserDto> call, @NonNull Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error fetching user data: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("UserData", Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+
+    private void updateStringsXml(String login, String email) {
+        String title = getString(R.string.nav_username, login);
+        String subtitle = getString(R.string.nav_email, email);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("NAV_USERNAME", title);
+        editor.putString("NAV_EMAIL", subtitle);
         editor.apply();
     }
 }

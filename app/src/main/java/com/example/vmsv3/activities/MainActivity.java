@@ -1,9 +1,7 @@
 package com.example.vmsv3.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     R.id.nav_addTicket,
                     R.id.nav_refuelHistory,
                     R.id.nav_costHistory,
+                    R.id.nav_ticketHistory,
                     R.id.nav_vehicleList,
                     R.id.nav_charts,
                     R.id.nav_help
@@ -50,14 +49,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    public void logout(View view) {
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override
