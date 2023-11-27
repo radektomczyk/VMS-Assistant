@@ -34,18 +34,19 @@ public class RefuelHistoryFragment extends Fragment {
         View root = binding.getRoot();
 
         ApiService apiService = ApiClient.getApiClient().create(ApiService.class);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
         viewModel = new ViewModelProvider(this, new RefuelHistoryViewModelFactory(apiService, requireContext())).get(RefuelHistoryViewModel.class);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewRefuels);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        RefuelAdapter refuelAdapter = new RefuelAdapter();
+        RefuelAdapter refuelAdapter = new RefuelAdapter(apiService, accessToken);
         recyclerView.setAdapter(refuelAdapter);
 
         TextView textViewNoRefuelHistory = root.findViewById(R.id.textViewNoRefuelHistory);
 
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
+
 
         if (accessToken != null) {
             viewModel.getRefuels("Bearer " + accessToken).observe(getViewLifecycleOwner(), refuels -> {

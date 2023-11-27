@@ -19,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RefuelHistoryViewModel extends ViewModel {
+
     private final MutableLiveData<List<RefuelDto>> refuelsLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final ApiService apiService;
@@ -51,8 +52,6 @@ public class RefuelHistoryViewModel extends ViewModel {
         isLoading.setValue(true);
 
         Call<List<RefuelDto>> call = apiService.getRefuels(authorizationHeader);
-
-
 
         call.enqueue(new Callback<List<RefuelDto>>() {
             @Override
@@ -93,8 +92,6 @@ public class RefuelHistoryViewModel extends ViewModel {
     public LiveData<Boolean> isLoading() {
         return isLoading;
     }
-
-
 
     private void showToast(String message) {
         if (context != null) {

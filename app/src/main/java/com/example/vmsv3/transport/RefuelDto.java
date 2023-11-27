@@ -18,16 +18,16 @@ public class RefuelDto {
     @SerializedName("id_pojazdu")
     private long vehicleId;
 
-
     public RefuelDto() {}
 
-    public RefuelDto(double fuelAmount, String fuelType, int pricePerLiter, int totalPrice, String refuelDate, int blockade) {
+    public RefuelDto(double fuelAmount, String fuelType, int pricePerLiter, int totalPrice, String refuelDate, int blockade, long vehicleId) {
         this.fuelAmount = fuelAmount;
         this.fuelType = fuelType;
         this.pricePerLiter = pricePerLiter;
         this.totalPrice = totalPrice;
         this.refuelDate = refuelDate;
         this.blockade = blockade;
+        this.vehicleId = vehicleId;
     }
 
     public double getFuelAmount() {
