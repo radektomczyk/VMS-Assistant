@@ -3,10 +3,12 @@ package com.example.vmsv3.ui.refuel_history;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -45,7 +47,21 @@ public class RefuelHistoryFragment extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-
+        if (accessToken != null) {
+            viewModel.getRefuels("Bearer " + accessToken).observe(getViewLifecycleOwner(), refuels -> {
+                if (refuels != null && !refuels.isEmpty()) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textViewNoRefuelHistory.setVisibility(View.GONE);
+                    refuelAdapter.setRefuels(refuels);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    textViewNoRefuelHistory.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            Toast.makeText(requireContext(), "Access token not available", Toast.LENGTH_SHORT).show();
+            Log.e("RefuelHistoryFragment", "Access token is null. Redirect to login screen or handle accordingly.");
+        }
 
         return root;
     }

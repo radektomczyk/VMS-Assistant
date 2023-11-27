@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vmsv3.R;
+import com.example.vmsv3.api.ApiService;
 import com.example.vmsv3.transport.RefuelDto;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
 
 public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelViewHolder> {
     private List<RefuelDto> refuels = new ArrayList<>();
+    private ApiService apiService;
+
 
     @NonNull
     @Override
@@ -31,7 +34,7 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
             RefuelDto refuel = refuels.get(position);
             holder.bind(refuel);
         } else {
-            Log.e("CostAdapter", "Invalid data or position");
+            Log.e("RefuelAdapter", "Invalid data or position");
         }
     }
 
@@ -62,6 +65,23 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
         }
 
         void bind(RefuelDto refuel) {
+//            if (refuel.getVehicle() != null) {
+//                VehicleDto vehicle = refuel.getVehicle();
+//                carBrand.setText(vehicle.getCarBrand());
+//                carModel.setText(vehicle.getCarModel());
+//                carPlate.setText(vehicle.getCarPlate());
+//            } else {
+//                Log.e("RefuelAdapter", "Vehicle is null for refuel: " + refuel);
+//            }
+
+            Log.d("RefuelDto", "Fuel Amount: " + refuel.getFuelAmount() +
+                    ", Fuel Type: " + refuel.getFuelType() +
+                    ", Price Per Liter: " + refuel.getPricePerLiter() +
+                    ", Total Price: " + refuel.getTotalPrice() +
+                    ", Refuel Date: " + refuel.getRefuelDate() +
+                    ", Blockade: " + refuel.getBlockade() +
+                    ", Vehicle ID: " + refuel.getVehicleId());
+
             refuelDate.setText(refuel.getRefuelDate());
             refuelAmount.setText(String.valueOf(refuel.getFuelAmount()));
             fuelPrice.setText(String.valueOf(refuel.getPricePerLiter()));

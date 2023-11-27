@@ -84,8 +84,6 @@ public class CostHistoryViewModel extends ViewModel {
                 showToast("Network error: " + t.getMessage());
             }
         });
-
-
         return costsLiveData;
     }
 
