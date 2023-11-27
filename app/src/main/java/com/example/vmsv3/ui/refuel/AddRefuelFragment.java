@@ -93,7 +93,6 @@ public class AddRefuelFragment extends Fragment {
 
             Call<List<VehicleDto>> call = apiService.getVehicleList(authorizationHeader);
 
-            // Log the request details before making the call
             Log.d("AddRefuelFragment", "Request URL: " + call.request().url());
             Log.d("AddRefuelFragment", "Request Headers: " + call.request().headers());
 
@@ -130,7 +129,6 @@ public class AddRefuelFragment extends Fragment {
     private void setupVehicleSpinner() {
         List<String> vehicleNames = new ArrayList<>();
         for (VehicleDto vehicle : vehicleList) {
-            // Customize how you want to display the vehicle information in the spinner
             String displayName = vehicle.getCarBrand() + " " + vehicle.getCarModel();
             vehicleNames.add(displayName);
         }
@@ -170,14 +168,12 @@ public class AddRefuelFragment extends Fragment {
                     return;
                 }
 
-                // Set other fields...
                 refuel.setPricePerLiter((int) (Double.parseDouble(priceEditText.getText().toString()) * 100));
                 refuel.setFuelType(String.valueOf(fuelTypeSpinner.getSelectedItem()));
                 refuel.setTotalPrice((int) (Double.parseDouble(totalCostEditText.getText().toString()) * 100));
                 refuel.setRefuelDate(parseDateEditText(refuelDateEditText));
                 refuel.setBlockade(0);
 
-                // Log all values of the refuel object
                 Log.d("AddRefuelFragment", "Refuel values: " +
                         "FuelAmount = " + refuel.getFuelAmount() +
                         ", PricePerLiter = " + refuel.getPricePerLiter() +
@@ -187,7 +183,6 @@ public class AddRefuelFragment extends Fragment {
 
                 String authorizationHeader = "Bearer " + accessToken;
 
-                // Pass the selected vehicleId in the header
                 long selectedVehicleId = parseCurrentVehicleSpinnerSelectionToValue();
                 apiService.createRefuel(authorizationHeader, selectedVehicleId, refuel).enqueue(new Callback<Void>() {
                     @Override
@@ -222,7 +217,7 @@ public class AddRefuelFragment extends Fragment {
         if (selectedPosition >= 0 && selectedPosition < vehicleList.size()) {
             return vehicleList.get(selectedPosition).getVehicleId();
         } else {
-            return 0; // or handle the error as needed
+            return 0;
         }
     }
 

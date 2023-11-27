@@ -54,7 +54,6 @@ public class AddTicketFragment extends Fragment {
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // retrofit init
         apiService = ApiClient.getApiClient().create(ApiService.class);
 
         reasonEditText = root.findViewById(R.id.ticketNameEditText);
@@ -70,7 +69,6 @@ public class AddTicketFragment extends Fragment {
         costEditText = root.findViewById(R.id.ticketAmountEditText);
         button = root.findViewById(R.id.saveTicketButton);
 
-        // init calendar
         dateEditText.setOnClickListener(v -> showDatePicker());
 
 

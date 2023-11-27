@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RefuelDto {
     @SerializedName("ilosc_paliwa")
-    private double  fuelAmount;
+    private double fuelAmount;
     @SerializedName("typ_paliwa")
     private String fuelType;
     @SerializedName("cena_za_litr")
@@ -17,7 +17,8 @@ public class RefuelDto {
     private int blockade;
 
 
-    public RefuelDto() {}
+    public RefuelDto() {
+    }
 
     public RefuelDto(double fuelAmount, String fuelType, int pricePerLiter, int totalPrice, String refuelDate, int blockade) {
         this.fuelAmount = fuelAmount;
@@ -75,7 +76,4 @@ public class RefuelDto {
     public void setBlockade(int blockade) {
         this.blockade = blockade;
     }
-
-
-
 }

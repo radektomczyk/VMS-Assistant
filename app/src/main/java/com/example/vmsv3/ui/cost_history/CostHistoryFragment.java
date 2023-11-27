@@ -34,15 +34,13 @@ public class CostHistoryFragment extends Fragment {
 
         ApiService apiService = ApiClient.getApiClient().create(ApiService.class);
 
-        // Initialize ViewModel with ApiService and Context
-        viewModel = new ViewModelProvider(this, new ViewModelFactory(apiService, requireContext())).get(CostHistoryViewModel.class);
+        viewModel = new ViewModelProvider(this, new CostHistoryViewModelFactory(apiService, requireContext())).get(CostHistoryViewModel.class);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerViewCosts);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         CostAdapter costAdapter = new CostAdapter();
         recyclerView.setAdapter(costAdapter);
 
-        // TextView for displaying the message when cost history is empty
         TextView textViewNoCostHistory = root.findViewById(R.id.textViewNoCostHistory);
 
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -51,18 +49,15 @@ public class CostHistoryFragment extends Fragment {
         if (accessToken != null) {
             viewModel.getCosts("Bearer " + accessToken).observe(getViewLifecycleOwner(), costs -> {
                 if (costs != null && !costs.isEmpty()) {
-                    // If cost history is not empty, show the RecyclerView and hide the message
                     recyclerView.setVisibility(View.VISIBLE);
                     textViewNoCostHistory.setVisibility(View.GONE);
                     costAdapter.setCosts(costs);
                 } else {
-                    // If cost history is empty, hide the RecyclerView and show the message
                     recyclerView.setVisibility(View.GONE);
                     textViewNoCostHistory.setVisibility(View.VISIBLE);
                 }
             });
         } else {
-            // Handle the case where the access token is null
             Toast.makeText(requireContext(), "Access token not available", Toast.LENGTH_SHORT).show();
             Log.e("CostHistoryFragment", "Access token is null. Redirect to login screen or handle accordingly.");
         }

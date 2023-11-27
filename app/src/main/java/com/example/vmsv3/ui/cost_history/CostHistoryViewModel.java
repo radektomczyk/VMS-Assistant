@@ -24,13 +24,11 @@ public class CostHistoryViewModel extends ViewModel {
     private final ApiService apiService;
     private final Context context;
 
-    // Default constructor
     public CostHistoryViewModel() {
-        apiService = null; // or initialize with a default value if needed
-        context = null; // or initialize with a default value if needed
+        this.apiService = null;
+        this.context = null;
     }
 
-    // Parameterized constructor
     public CostHistoryViewModel(ApiService apiService, Context context) {
         Log.d("CostHistoryViewModel", "ApiService: " + apiService);
         this.apiService = apiService;
@@ -69,7 +67,6 @@ public class CostHistoryViewModel extends ViewModel {
                 } else {
                     Log.e("CostHistoryViewModel", "Failed to fetch costs. Code: " + response.code());
 
-                    // Log the error response body
                     try {
                         Log.e("CostHistoryViewModel", "Error Response: " + response.errorBody().string());
                     } catch (IOException e) {
@@ -82,7 +79,7 @@ public class CostHistoryViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<CostDto>> call, Throwable t) {
-                isLoading.setValue(false); // Reset loading state
+                isLoading.setValue(false);
                 Log.e("CostHistoryViewModel", "Network error: " + t.getMessage(), t);
                 showToast("Network error: " + t.getMessage());
             }

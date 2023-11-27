@@ -1,19 +1,18 @@
-package com.example.vmsv3.ui.cost_history;
+package com.example.vmsv3.ui.refuel_history;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModel;
-
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vmsv3.api.ApiService;
 
-public class ViewModelFactory implements ViewModelProvider.Factory {
+public class RefuelHistoryViewModelFactory implements ViewModelProvider.Factory {
     private final ApiService apiService;
     private final Context context;
 
-    public ViewModelFactory(ApiService apiService, Context context) {
+    public RefuelHistoryViewModelFactory(ApiService apiService, Context context) {
         this.apiService = apiService;
         this.context = context;
     }
@@ -21,8 +20,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(CostHistoryViewModel.class)) {
-            return (T) new CostHistoryViewModel(apiService, context);
+        if (modelClass.isAssignableFrom(RefuelHistoryViewModel.class)) {
+            return (T) new RefuelHistoryViewModel(apiService, context);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

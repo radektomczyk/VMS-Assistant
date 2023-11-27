@@ -31,6 +31,11 @@ public interface ApiService {
     @GET("/api/auth/costs")
     Call<List<CostDto>> getCosts(@Header("Authorization") String authorizationHeader);
 
+    @GET("/api/auth/refuel")
+    Call<List<RefuelDto>> getRefuels(@Header("Authorization") String authorizationHeader);
+
     @GET("/api/auth/vehicles")
     Call<List<VehicleDto>> getVehicleList(@Header("Authorization") String authorizationHeader);
+    @GET("/api/vehicle/{id}")
+    Call<VehicleDto> getVehicleDetails(@Path("id") long vehicleId);
 }

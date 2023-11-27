@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder> {
-
     private List<CostDto> costs = new ArrayList<>();
 
     @NonNull
