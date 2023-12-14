@@ -123,8 +123,8 @@ public class LoginActivity extends AppCompatActivity {
         String subtitle = getString(R.string.nav_email, email);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAV_USERNAME", title);
-        editor.putString("NAV_EMAIL", subtitle);
+        editor.putString(title, login);
+        editor.putString(subtitle, email);
         editor.apply();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.vmsv3.api;
 
 import com.example.vmsv3.transport.CostDto;
+import com.example.vmsv3.transport.EventDto;
 import com.example.vmsv3.transport.LoginDto;
 import com.example.vmsv3.transport.RefuelDto;
 import com.example.vmsv3.transport.TicketDto;
@@ -38,4 +39,6 @@ public interface ApiService {
     Call<UserDto> getUserData(@Header("Authorization") String authorizationHeader);
     @GET("/api/vehicle/{id}")
     Call<VehicleDto> getVehicleDetails(@Header("Authorization") String authorization, @Path("id") long vehicleId);
+    @GET("/api/auth/events")
+    Call<List<EventDto>> getEventsList(@Header("Authorization") String authorization);
 }

@@ -12,7 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vmsv3.R;
 import com.example.vmsv3.transport.CostDto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder> {
@@ -41,6 +46,13 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
     }
 
     public void setCosts(List<CostDto> costs) {
+        Collections.sort(costs, new Comparator<CostDto>() {
+            @Override
+            public int compare(CostDto cost1, CostDto cost2) {
+                return cost2.getCostDate().compareTo(cost1.getCostDate());
+            }
+        });
+
         this.costs = costs;
         notifyDataSetChanged();
     }
@@ -49,6 +61,9 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
         TextView textViewCostName;
         TextView textViewCostAmount;
         TextView textViewCostDate;
+
+        private SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        private SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
 
         public CostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +75,16 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
         void bind(CostDto cost) {
             textViewCostName.setText(cost.getCostName());
             textViewCostAmount.setText(String.valueOf(cost.getCostAmount()));
-            textViewCostDate.setText(cost.getCostDate());
+
+            // Convert and format the date
+            try {
+                Date date = inputDateFormat.parse(cost.getCostDate());
+                String formattedDate = outputDateFormat.format(date);
+                textViewCostDate.setText(formattedDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                textViewCostDate.setText(cost.getCostDate()); // Set the original date if parsing fails
+            }
         }
     }
 }

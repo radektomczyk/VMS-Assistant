@@ -14,7 +14,12 @@ import com.example.vmsv3.api.ApiService;
 import com.example.vmsv3.transport.RefuelDto;
 import com.example.vmsv3.transport.VehicleDto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,9 +59,17 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
     }
 
     public void setRefuels(List<RefuelDto> refuels) {
+        Collections.sort(refuels, new Comparator<RefuelDto>() {
+            @Override
+            public int compare(RefuelDto refuel1, RefuelDto refuel2) {
+                return refuel2.getRefuelDate().compareTo(refuel1.getRefuelDate());
+            }
+        });
+
         this.refuels = refuels;
         notifyDataSetChanged();
     }
+
 
     static class RefuelViewHolder extends RecyclerView.ViewHolder {
         TextView carBrand;
@@ -65,6 +78,9 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
         TextView refuelDate;
         TextView refuelAmount;
         TextView fuelPrice;
+
+        private SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        private SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
 
         private ApiService apiService;
         private String accessToken;
@@ -90,12 +106,22 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
                     ", Blockade: " + refuel.getBlockade() +
                     ", Vehicle ID: " + refuel.getVehicleId());
 
-            refuelDate.setText(refuel.getRefuelDate());
+            // Convert and format the date
+            try {
+                Date date = inputDateFormat.parse(refuel.getRefuelDate());
+                String formattedDate = outputDateFormat.format(date);
+                refuelDate.setText(formattedDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                refuelDate.setText(refuel.getRefuelDate()); // Set the original date if parsing fails
+            }
+
             refuelAmount.setText(String.valueOf(refuel.getFuelAmount()));
             fuelPrice.setText(String.valueOf(refuel.getPricePerLiter()));
 
             fetchAndDisplayVehicleDetails(refuel.getVehicleId(), this);
         }
+
 
         void fetchAndDisplayVehicleDetails(long vehicleId, RefuelViewHolder holder) {
             Call<VehicleDto> call = apiService.getVehicleDetails("Bearer " + accessToken, vehicleId);
