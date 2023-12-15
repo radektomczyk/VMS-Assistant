@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.vmsv3.R;
 import com.example.vmsv3.api.ApiClient;
 import com.example.vmsv3.api.ApiService;
-import com.example.vmsv3.api.LoginResponse;
+import com.example.vmsv3.transport.LoginResponse;
 import com.example.vmsv3.transport.LoginDto;
 import com.example.vmsv3.transport.UserDto;
 

@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.refuel_history;
+package com.example.vmsv3.ui.event_list;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,49 +19,46 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vmsv3.R;
 import com.example.vmsv3.api.ApiClient;
 import com.example.vmsv3.api.ApiService;
-import com.example.vmsv3.databinding.FragmentRefuelHistoryBinding;
+import com.example.vmsv3.databinding.FragmentEventListBinding;
 
+public class EventListFragment extends Fragment {
 
-public class RefuelHistoryFragment extends Fragment {
-
-    private FragmentRefuelHistoryBinding binding;
-    private RefuelHistoryViewModel viewModel;
+    private FragmentEventListBinding binding;
+    private EventListViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRefuelHistoryBinding.inflate(inflater, container, false);
+        binding = FragmentEventListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         ApiService apiService = ApiClient.getApiClient().create(ApiService.class);
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPreferences.getString("ACCESS_TOKEN", null);
 
-        viewModel = new ViewModelProvider(this, new RefuelHistoryViewModelFactory(apiService, requireContext())).get(RefuelHistoryViewModel.class);
+        viewModel = new ViewModelProvider(this, new EventListViewModelFactory(apiService, requireContext())).get(EventListViewModel.class);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewRefuels);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        RefuelHistoryAdapter refuelHistoryAdapter = new RefuelHistoryAdapter(apiService, accessToken);
-        recyclerView.setAdapter(refuelHistoryAdapter);
+        EventListAdapter eventListAdapter = new EventListAdapter(apiService, accessToken);
+        recyclerView.setAdapter(eventListAdapter);
 
-        TextView textViewNoRefuelHistory = root.findViewById(R.id.textViewNoRefuelHistory);
-
-
+        TextView textViewNoEvent = root.findViewById(R.id.textViewNoEvent);
 
         if (accessToken != null) {
-            viewModel.getRefuels("Bearer " + accessToken).observe(getViewLifecycleOwner(), refuels -> {
-                if (refuels != null && !refuels.isEmpty()) {
+            viewModel.getEventsList("Bearer " + accessToken).observe(getViewLifecycleOwner(), events -> {
+                if (events != null && !events.isEmpty()) {
                     recyclerView.setVisibility(View.VISIBLE);
-                    textViewNoRefuelHistory.setVisibility(View.GONE);
-                    refuelHistoryAdapter.setRefuels(refuels);
+                    textViewNoEvent.setVisibility(View.GONE);
+                    eventListAdapter.setEventList(events);
                 } else {
                     recyclerView.setVisibility(View.GONE);
-                    textViewNoRefuelHistory.setVisibility(View.VISIBLE);
+                    textViewNoEvent.setVisibility(View.VISIBLE);
                 }
             });
         } else {
             Toast.makeText(requireContext(), "Access token not available", Toast.LENGTH_SHORT).show();
-            Log.e("RefuelHistoryFragment", "Access token is null. Redirect to login screen or handle accordingly.");
+            Log.e("EventListFragment", "Access token is null. Redirect to login screen or handle accordingly.");
         }
 
         return root;

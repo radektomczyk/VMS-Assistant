@@ -64,7 +64,7 @@ public class AddRefuelFragment extends Fragment {
         fuelAmountEditText = root.findViewById(R.id.fuelAmountEditText);
         priceEditText = root.findViewById(R.id.priceEditText);
         fuelTypeSpinner = root.findViewById(R.id.fuelTypeSpinner);
-        String [] fuelTypeArray = getResources().getStringArray(R.array.fuelTypeArray);
+        String[] fuelTypeArray = getResources().getStringArray(R.array.fuelTypeArray);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -151,7 +151,6 @@ public class AddRefuelFragment extends Fragment {
             if (validateFields()) {
                 RefuelDto refuel = new RefuelDto();
 
-                // Validate fuel amount
                 String fuelAmountString = fuelAmountEditText.getText().toString();
                 if (!fuelAmountString.isEmpty()) {
                     try {
@@ -212,7 +211,6 @@ public class AddRefuelFragment extends Fragment {
 
 
     private long parseCurrentVehicleSpinnerSelectionToValue() {
-        // Use the selected position to get the corresponding vehicleId
         int selectedPosition = this.vehiclesSpinner.getSelectedItemPosition();
         if (selectedPosition >= 0 && selectedPosition < vehicleList.size()) {
             return vehicleList.get(selectedPosition).getVehicleId();
@@ -256,7 +254,7 @@ public class AddRefuelFragment extends Fragment {
         return inputDate != null && !inputDate.after(currentDate);
     }
 
-    public void emptyFields(){
+    public void emptyFields() {
         vehiclesSpinner.setSelection(0);
         fuelAmountEditText.setText(null);
         priceEditText.setText(null);
@@ -266,7 +264,7 @@ public class AddRefuelFragment extends Fragment {
     }
 
     private boolean validateFields() {
-        return  isValidSpinnerSelection(vehiclesSpinner) &&
+        return isValidSpinnerSelection(vehiclesSpinner) &&
                 !fuelAmountEditText.getText().toString().isEmpty() &&
                 !priceEditText.getText().toString().isEmpty() &&
                 isValidSpinnerSelection(fuelTypeSpinner) &&

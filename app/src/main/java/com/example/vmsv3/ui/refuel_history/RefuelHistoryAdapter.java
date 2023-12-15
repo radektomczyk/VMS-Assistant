@@ -26,12 +26,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelViewHolder> {
+public class RefuelHistoryAdapter extends RecyclerView.Adapter<RefuelHistoryAdapter.RefuelViewHolder> {
     private List<RefuelDto> refuels = new ArrayList<>();
-    private ApiService apiService;
-    private String accessToken;
+    private final ApiService apiService;
+    private final String accessToken;
 
-    public RefuelAdapter(ApiService apiService, String accessToken) {
+    public RefuelHistoryAdapter(ApiService apiService, String accessToken) {
         this.apiService = apiService;
         this.accessToken = accessToken;
     }
@@ -44,7 +44,7 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RefuelAdapter.RefuelViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RefuelHistoryAdapter.RefuelViewHolder holder, int position) {
         if (refuels != null && position < refuels.size()) {
             RefuelDto refuel = refuels.get(position);
             holder.bind(refuel);
@@ -70,31 +70,32 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
         notifyDataSetChanged();
     }
 
-
     static class RefuelViewHolder extends RecyclerView.ViewHolder {
-        TextView carBrand;
-        TextView carModel;
-        TextView carPlate;
         TextView refuelDate;
         TextView refuelAmount;
         TextView fuelPrice;
+        TextView fuelType;
+        TextView carBrand;
+        TextView carModel;
+        TextView carPlate;
 
-        private SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        private SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
+        private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
 
-        private ApiService apiService;
-        private String accessToken;
+        private final ApiService apiService;
+        private final String accessToken;
 
         public RefuelViewHolder(@NonNull View itemView, ApiService apiService, String accessToken) {
             super(itemView);
             this.apiService = apiService;
             this.accessToken = accessToken;
-            carBrand = itemView.findViewById(R.id.historyCarBrandTextView);
-            carModel = itemView.findViewById(R.id.historyCarModelTextView);
-            carPlate = itemView.findViewById(R.id.historyCarPlatesTextView);
             refuelDate = itemView.findViewById(R.id.historyRefuelDateTextView);
             refuelAmount = itemView.findViewById(R.id.historyFuelAmountTextView);
             fuelPrice = itemView.findViewById(R.id.historyFuelPriceTextView);
+            fuelType = itemView.findViewById(R.id.historyFuelTypeTextView);
+            carBrand = itemView.findViewById(R.id.historyCarBrandTextView);
+            carModel = itemView.findViewById(R.id.historyCarModelTextView);
+            carPlate = itemView.findViewById(R.id.historyCarPlatesTextView);
         }
 
         void bind(RefuelDto refuel) {
@@ -106,29 +107,32 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
                     ", Blockade: " + refuel.getBlockade() +
                     ", Vehicle ID: " + refuel.getVehicleId());
 
-            // Convert and format the date
             try {
                 Date date = inputDateFormat.parse(refuel.getRefuelDate());
                 String formattedDate = outputDateFormat.format(date);
-                refuelDate.setText(formattedDate);
+                refuelDate.setText(String.format("Data tankowania: %s", formattedDate));
             } catch (ParseException e) {
                 e.printStackTrace();
-                refuelDate.setText(refuel.getRefuelDate()); // Set the original date if parsing fails
+                refuelDate.setText(String.format("Data tankowania: %s", refuel.getRefuelDate()));
             }
 
-            refuelAmount.setText(String.valueOf(refuel.getFuelAmount()));
-            fuelPrice.setText(String.valueOf(refuel.getPricePerLiter()));
+            String formattedFuelAmount = String.format("%.2f", refuel.getFuelAmount());
+            refuelAmount.setText(String.format("Ilość paliwa: %s l", formattedFuelAmount));
+
+            double costPerLiter = refuel.getPricePerLiter() / 100.0;
+            fuelPrice.setText(String.format("Koszt za litr: %s zł", String.format("%.2f", costPerLiter)));
+
+            fuelType.setText(String.format("Typ paliwa: %s", refuel.getFuelType()));
 
             fetchAndDisplayVehicleDetails(refuel.getVehicleId(), this);
         }
-
 
         void fetchAndDisplayVehicleDetails(long vehicleId, RefuelViewHolder holder) {
             Call<VehicleDto> call = apiService.getVehicleDetails("Bearer " + accessToken, vehicleId);
 
             call.enqueue(new Callback<VehicleDto>() {
                 @Override
-                public void onResponse(Call<VehicleDto> call, Response<VehicleDto> response) {
+                public void onResponse(@NonNull Call<VehicleDto> call, @NonNull Response<VehicleDto> response) {
                     if (response.isSuccessful()) {
                         VehicleDto vehicle = response.body();
                         if (vehicle != null) {
@@ -142,16 +146,16 @@ public class RefuelAdapter extends RecyclerView.Adapter<RefuelAdapter.RefuelView
                 }
 
                 @Override
-                public void onFailure(Call<VehicleDto> call, Throwable t) {
+                public void onFailure(@NonNull Call<VehicleDto> call, @NonNull Throwable t) {
                     Log.e("RefuelAdapter", "Failed to fetch vehicle details: " + t.getMessage(), t);
                 }
             });
         }
 
         void bindVehicleDetails(VehicleDto vehicle) {
-            carBrand.setText(vehicle.getCarBrand());
-            carModel.setText(vehicle.getCarModel());
-            carPlate.setText(vehicle.getCarPlate());
+            carBrand.setText(String.format("Marka: %s", vehicle.getCarBrand()));
+            carModel.setText(String.format("Model: %s", vehicle.getCarModel()));
+            carPlate.setText(String.format("Numer rejestracyjny: %s", vehicle.getCarPlate()));
         }
     }
 }

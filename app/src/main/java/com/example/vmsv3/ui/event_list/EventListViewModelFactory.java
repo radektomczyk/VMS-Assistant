@@ -1,4 +1,4 @@
-package com.example.vmsv3.ui.cost_history;
+package com.example.vmsv3.ui.event_list;
 
 import android.content.Context;
 
@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.vmsv3.api.ApiService;
 
-public class CostHistoryViewModelFactory implements ViewModelProvider.Factory {
+public class EventListViewModelFactory implements ViewModelProvider.Factory {
     private final ApiService apiService;
     private final Context context;
 
-    public CostHistoryViewModelFactory(ApiService apiService, Context context) {
+    public EventListViewModelFactory(ApiService apiService, Context context) {
         this.apiService = apiService;
         this.context = context;
     }
@@ -20,8 +20,8 @@ public class CostHistoryViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(CostHistoryViewModel.class)) {
-            return (T) new CostHistoryViewModel(apiService, context);
+        if (modelClass.isAssignableFrom(EventListViewModel.class)) {
+            return (T) new EventListViewModel(apiService, context);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

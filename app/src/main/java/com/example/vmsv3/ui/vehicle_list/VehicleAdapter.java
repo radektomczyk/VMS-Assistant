@@ -56,9 +56,9 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         }
 
         void bind(VehicleDto vehicle) {
-            textViewBrand.setText(vehicle.getCarBrand());
-            textViewModel.setText(String.valueOf(vehicle.getCarModel()));
-            textViewPlate.setText(vehicle.getCarPlate());
+            textViewBrand.setText(String.format("Marka: %s", vehicle.getCarBrand()));
+            textViewModel.setText(String.format("Model: %s", vehicle.getCarModel()));
+            textViewPlate.setText(String.format("Numer rejestracyjny: %s", vehicle.getCarPlate()));
         }
     }
 }

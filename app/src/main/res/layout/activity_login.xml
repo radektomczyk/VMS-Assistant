@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@android:color/background_light">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="rtomczyk"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:drawablePadding="8dp"
         android:hint="Username"
         android:inputType="text"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
         android:padding="12dp"
-        android:drawablePadding="8dp"/>
+        android:text="rtomczyk"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="haslo123"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:drawablePadding="8dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
         android:padding="12dp"
-        android:drawablePadding="8dp"/>
+        android:text="haslo123"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
         android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:onClick="loginClick"
         android:padding="16dp"
-        android:onClick="loginClick"/>
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 </LinearLayout>

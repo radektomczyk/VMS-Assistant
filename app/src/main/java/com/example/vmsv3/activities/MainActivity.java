@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.vmsv3.R;
 import com.example.vmsv3.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,13 +26,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.nav_mainPage,
-                    R.id.nav_calendar,
+                    R.id.nav_eventList,
                     R.id.nav_addRefuel,
                     R.id.nav_addCost,
                     R.id.nav_addTicket,

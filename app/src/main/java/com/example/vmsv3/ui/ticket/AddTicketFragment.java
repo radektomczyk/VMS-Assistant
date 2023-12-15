@@ -44,13 +44,10 @@ public class AddTicketFragment extends Fragment {
     private Spinner ticketDurationSpinner;
     private EditText dateEditText;
     private EditText costEditText;
-    private Button button;
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddTicketBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -60,14 +57,12 @@ public class AddTicketFragment extends Fragment {
         penaltyPointsEditText = root.findViewById(R.id.penaltyPointsEditText);
         ticketDurationSpinner = root.findViewById(R.id.ticketDurationSpinner);
         String[] ticketDurationArray = getResources().getStringArray(R.array.ticketDurationArray);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                ticketDurationArray);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, ticketDurationArray);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ticketDurationSpinner.setAdapter(spinnerAdapter);        dateEditText = root.findViewById(R.id.ticketDateEditText);
+        ticketDurationSpinner.setAdapter(spinnerAdapter);
+        dateEditText = root.findViewById(R.id.ticketDateEditText);
         costEditText = root.findViewById(R.id.ticketAmountEditText);
-        button = root.findViewById(R.id.saveTicketButton);
+        Button button = root.findViewById(R.id.saveTicketButton);
 
         dateEditText.setOnClickListener(v -> showDatePicker());
 
@@ -91,7 +86,7 @@ public class AddTicketFragment extends Fragment {
                 ticket.setPenaltyPoints(parseEditTextToInt(penaltyPointsEditText));
                 ticket.setValidityMonths(parseSpinnerSelectionToValue(ticketDurationSpinner));
                 ticket.setReceiveDate(parseDateEditText(dateEditText));
-                ticket.setAmount((int) Double.parseDouble(costEditText.getText().toString()));
+                ticket.setAmount((int) (Double.parseDouble(costEditText.getText().toString()) * 100));
 
                 String authorizationHeader = "Bearer " + accessToken;
 
@@ -99,7 +94,7 @@ public class AddTicketFragment extends Fragment {
 
                 call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getContext(), "Ticket created successfully", Toast.LENGTH_SHORT).show();
                             emptyFields();
@@ -111,7 +106,7 @@ public class AddTicketFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                         Toast.makeText(getContext(), "Failed to create ticket", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -124,11 +119,7 @@ public class AddTicketFragment extends Fragment {
     }
 
     private boolean validateFields() {
-        return !reasonEditText.getText().toString().isEmpty() &&
-                !penaltyPointsEditText.getText().toString().isEmpty() &&
-                isValidSpinnerSelection(ticketDurationSpinner) &&
-                !dateEditText.getText().toString().isEmpty() &&
-                !costEditText.getText().toString().isEmpty();
+        return !reasonEditText.getText().toString().isEmpty() && !penaltyPointsEditText.getText().toString().isEmpty() && isValidSpinnerSelection(ticketDurationSpinner) && !dateEditText.getText().toString().isEmpty() && !costEditText.getText().toString().isEmpty();
     }
 
 
@@ -143,7 +134,7 @@ public class AddTicketFragment extends Fragment {
         try {
             Date date = inputDateFormat.parse(dateString);
 
-            if (date != null && isValidDate(date)) {
+            if (isValidDate(date)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -170,9 +161,9 @@ public class AddTicketFragment extends Fragment {
         String selectedOption = spinner.getSelectedItem().toString();
 
         switch (selectedOption) {
-            case "12 months":
+            case "12 miesięcy":
                 return 12;
-            case "24 months":
+            case "24 miesięcy":
                 return 24;
             default:
                 return 0;
@@ -207,13 +198,14 @@ public class AddTicketFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    public void emptyFields(){
+    public void emptyFields() {
         reasonEditText.setText(null);
         penaltyPointsEditText.setText(null);
         ticketDurationSpinner.setSelection(0);
         dateEditText.setText(null);
         costEditText.setText(null);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

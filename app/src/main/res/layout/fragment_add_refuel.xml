@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,38 +10,41 @@
         android:id="@+id/addRefuel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:shrinkColumns="*"
-        android:stretchColumns="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:stretchColumns="2">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/vehiclesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wybierz samochod" >
-            </TextView>
+                android:text="Samochód"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <Spinner
                 android:id="@+id/vehiclesSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:ems="10">
-            </Spinner>
+                android:ems="10" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/fuelAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ilość" />
+                android:text="Ilość"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/fuelAmountEditText"
@@ -54,15 +55,18 @@
                 android:hint="20.23 l"
                 android:inputType="numberDecimal" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cena" />
+                android:text="Cena"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/priceEditText"
@@ -73,32 +77,38 @@
                 android:hint="6.07 zł/l"
                 android:inputType="numberDecimal" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/fuelTypeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Typ paliwa" >
-            </TextView>
+                android:text="Typ paliwa"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <Spinner
                 android:id="@+id/fuelTypeSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:ems="10">
-            </Spinner>
+                android:ems="10" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/totalCostTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Koszt całkowity" />
+                android:text="Koszt"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/totalCostEditText"
@@ -112,32 +122,41 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/refuelDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data">
-            </TextView>
+                android:text="Data"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/refuelDateEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:ems="10"
                 android:clickable="true"
+                android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:hint="dd/mm/rrrr">
-            </EditText>
+                android:hint="dd/mm/rrrr" />
         </TableRow>
+
 
         <Button
             android:id="@+id/saveRefuelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zapisz tankowanie">
-        </Button>
+            android:layout_marginTop="16dp"
+            android:layout_span="3"
+            android:background="#3498db"
+            android:text="Zapisz tankowanie"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+
     </TableLayout>
 
 </LinearLayout>

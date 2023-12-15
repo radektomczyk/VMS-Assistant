@@ -3,6 +3,7 @@ package com.example.vmsv3.api;
 import com.example.vmsv3.transport.CostDto;
 import com.example.vmsv3.transport.EventDto;
 import com.example.vmsv3.transport.LoginDto;
+import com.example.vmsv3.transport.LoginResponse;
 import com.example.vmsv3.transport.RefuelDto;
 import com.example.vmsv3.transport.TicketDto;
 import com.example.vmsv3.transport.UserDto;

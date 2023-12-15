@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,17 +12,20 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="16dp">
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/costNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tytuł">
-            </TextView>
+                android:text="Tytuł"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/costNameEditText"
                 android:layout_width="wrap_content"
@@ -32,18 +33,21 @@
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="Zakup zawieszki"
-                android:inputType="textPersonName">
-            </EditText>
+                android:inputType="textPersonName" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/costDescriptionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opis">
-            </TextView>
+                android:text="Opis"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/costDescriptionEditText"
                 android:layout_width="wrap_content"
@@ -51,18 +55,21 @@
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="Opis Kosztu"
-                android:inputType="text">
-            </EditText>
+                android:inputType="text" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/costAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Koszt">
-            </TextView>
+                android:text="Koszt"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/costAmountEditText"
                 android:layout_width="wrap_content"
@@ -70,36 +77,43 @@
                 android:layout_span="2"
                 android:ems="10"
                 android:hint="12 zł"
-                android:inputType="number">
-            </EditText>
+                android:inputType="numberDecimal" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/costDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data">
-            </TextView>
+                android:text="Data"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/costDateEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="2"
-                android:ems="10"
                 android:clickable="true"
+                android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:hint="dd/mm/rrrr">
-            </EditText>
+                android:hint="dd/mm/rrrr" />
         </TableRow>
+
         <Button
             android:id="@+id/saveCostButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zapisz koszt">
-        </Button>
+            android:layout_marginTop="16dp"
+            android:layout_span="3"
+            android:background="#3498db"
+            android:text="Zapisz koszt"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
     </TableLayout>
 
 </LinearLayout>

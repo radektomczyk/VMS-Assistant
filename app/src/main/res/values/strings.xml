@@ -4,12 +4,12 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_username">Username: </string>
-    <string name="nav_email">Email: </string>
+    <string name="nav_username">Username: rtomczyk</string>
+    <string name="nav_email">Email: s93175@pollub.edu.pl</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_mainPage">Strona główna</string>
-    <string name="menu_calendar">Kalendarz</string>
+    <string name="menu_eventList">Lista wydarzeń</string>
     <string name="menu_addRefuel">Dodaj tankowanie</string>
     <string name="menu_addCost">Dodaj koszt</string>
     <string name="menu_addTicket">Dodaj mandat</string>
@@ -21,6 +21,13 @@
     <string name="menu_ticketHistory">Historia mandatów</string>
 
     <string name="login">Logowanie</string>
+    <string name="twoje_pojazdy">Twoje pojazdy</string>
+    <string name="history_is_empty">Historia jest pusta</string>
+    <string name="no_events_planned">Brak zaplanowanych wydarzeń</string>
+    <string name="twoje_mandaty">Twoje mandaty</string>
+    <string name="twoje_tankowania">Twoje tankowania</string>
+    <string name="planned_events">Wydarzenia dla twoich samochodów</string>
+    <string name="twoje_koszty">Twoje koszty</string>
 
     <string-array name="fuelTypeArray">
         <item>benzyna</item>

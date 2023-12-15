@@ -52,18 +52,16 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
                 return cost2.getCostDate().compareTo(cost1.getCostDate());
             }
         });
-
         this.costs = costs;
         notifyDataSetChanged();
     }
 
     static class CostViewHolder extends RecyclerView.ViewHolder {
+        private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
         TextView textViewCostName;
         TextView textViewCostAmount;
         TextView textViewCostDate;
-
-        private SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        private SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
 
         public CostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,16 +72,16 @@ public class CostAdapter extends RecyclerView.Adapter<CostAdapter.CostViewHolder
 
         void bind(CostDto cost) {
             textViewCostName.setText(cost.getCostName());
-            textViewCostAmount.setText(String.valueOf(cost.getCostAmount()));
-
-            // Convert and format the date
+            double formattedCostAmount = (double) cost.getCostAmount() / 100;
+            String formattedCostAmountString = String.format("%.2f", formattedCostAmount);
+            textViewCostAmount.setText(String.format("Kwota: %s zł", formattedCostAmountString));
             try {
                 Date date = inputDateFormat.parse(cost.getCostDate());
                 String formattedDate = outputDateFormat.format(date);
-                textViewCostDate.setText(formattedDate);
+                textViewCostDate.setText(String.format("Data: %s", formattedDate));
             } catch (ParseException e) {
                 e.printStackTrace();
-                textViewCostDate.setText(cost.getCostDate()); // Set the original date if parsing fails
+                textViewCostDate.setText(cost.getCostDate());
             }
         }
     }

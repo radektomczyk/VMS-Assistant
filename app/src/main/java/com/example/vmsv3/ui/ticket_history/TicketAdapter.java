@@ -46,11 +46,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     }
 
     public void setTickets(List<TicketDto> tickets) {
-        // Sort tickets by date
         Collections.sort(tickets, new Comparator<TicketDto>() {
             @Override
             public int compare(TicketDto ticket1, TicketDto ticket2) {
-                // Assuming getReceiveDate() returns a comparable date format (e.g., String, Date, etc.)
                 return ticket2.getReceiveDate().compareTo(ticket1.getReceiveDate());
             }
         });
@@ -60,29 +58,32 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     }
 
     static class TicketViewHolder extends RecyclerView.ViewHolder {
+        private final SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
         TextView ticketName;
+        TextView ticketPenaltyPoints;
+        TextView ticketAmount;
         TextView ticketDate;
-
-        private SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        private SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss");
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
             ticketName = itemView.findViewById(R.id.ticketHistoryNameTextView);
+            ticketPenaltyPoints = itemView.findViewById(R.id.ticketHistoryPenaltyPointsTextView);
+            ticketAmount = itemView.findViewById(R.id.ticketHistoryAmountTextView);
             ticketDate = itemView.findViewById(R.id.ticketHistoryDateTextView);
         }
 
         void bind(TicketDto ticket) {
             ticketName.setText(ticket.getReason());
-
-            // Convert and format the date
+            ticketPenaltyPoints.setText("Punkty karne: " + String.valueOf(ticket.getPenaltyPoints()));
+            ticketAmount.setText( "Kwota: " + String.valueOf(ticket.getAmount() / 100) + " zł");
             try {
                 Date date = inputDateFormat.parse(ticket.getReceiveDate());
                 String formattedDate = outputDateFormat.format(date);
-                ticketDate.setText(formattedDate);
+                ticketDate.setText("Data: " + formattedDate);
             } catch (ParseException e) {
                 e.printStackTrace();
-                ticketDate.setText(ticket.getReceiveDate()); // Set the original date if parsing fails
+                ticketDate.setText(ticket.getReceiveDate());
             }
         }
     }

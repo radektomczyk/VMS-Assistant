@@ -87,10 +87,6 @@ public class CostHistoryViewModel extends ViewModel {
         return costsLiveData;
     }
 
-    public LiveData<Boolean> isLoading() {
-        return isLoading;
-    }
-
     private void showToast(String message) {
         if (context != null) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

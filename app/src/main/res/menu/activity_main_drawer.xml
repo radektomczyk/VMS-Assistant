@@ -11,9 +11,9 @@
             android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_mainPage" />
         <item
-            android:id="@+id/nav_calendar"
+            android:id="@+id/nav_eventList"
             android:icon="@drawable/ic_menu_calendar"
-            android:title="@string/menu_calendar" />
+            android:title="@string/menu_eventList" />
         <item
             android:id="@+id/nav_addRefuel"
             android:icon="@drawable/ic_menu_addfuel"
@@ -36,7 +36,7 @@
             android:title="@string/menu_costHistory" />
         <item
             android:id="@+id/nav_ticketHistory"
-            android:icon="@drawable/ic_cost_history"
+            android:icon="@drawable/ic_menu_ticket_list"
             android:title="@string/menu_ticketHistory" />
         <item
             android:id="@+id/nav_charts"
